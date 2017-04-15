@@ -1782,3 +1782,38 @@ else return '<a class="price-login" href="/?p=195">Login</a> o <a class="price-l
 }
 // to show prices
 // add filter( 'woocommerce_show_variation_price', '__return_true' );
+
+
+
+
+
+
+/********************************************************/
+// Changing the default image sizes in Customizr-Pro
+/********************************************************/
+// old snippet [2014]:
+// http://presscustomizr.com/snippet/changing-default-image-sizes-customizr/
+
+add_filter( 'fpc_size', 'my_thumb_size');
+function my_thumb_size() {
+    $sizeinfo = array( 'width' => 370 , 'height' => 200, 'crop' => true );
+    return $sizeinfo;
+}
+// fpc_size vs. tc_thumb_size [customizr-free]
+
+// it requires custom styles:
+
+// .home .fpc-widget-front .round-div {
+//     border-top-color: rgba(0,0,0,0) !important;
+//     border-right-color: rgba(0,0,0,0) !important;
+//     border-bottom-color: rgba(0,0,0,0) !important;
+//     border-left-color: rgba(0,0,0,0) !important;
+// }
+
+// .fpc-widget-front .thumb-wrapper {
+//     width: 100%;
+//     height: auto !important;
+// }
+
+// http://docs.presscustomizr.com/article/36-image-sizes-in-the-customizr-theme
+// used on the 2017 Unifor Media One website
