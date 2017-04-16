@@ -1796,7 +1796,7 @@ else return '<a class="price-login" href="/?p=195">Login</a> o <a class="price-l
 
 add_filter( 'fpc_size', 'my_thumb_size');
 function my_thumb_size() {
-    $sizeinfo = array( 'width' => 370 , 'height' => 200, 'crop' => true );
+    $sizeinfo = array( 'width' => 370 , 'height' => 200, 'crop' => false );
     return $sizeinfo;
 }
 // fpc_size vs. tc_thumb_size [customizr-free]
@@ -1817,3 +1817,31 @@ function my_thumb_size() {
 
 // http://docs.presscustomizr.com/article/36-image-sizes-in-the-customizr-theme
 // used on the 2017 Unifor Media One website
+
+
+
+
+/********************************************************/
+// Install Facebook Pixel Code in WordPress
+/********************************************************/
+add_action('wp_head', 'add_pixelcode');
+function add_pixelcode() { ?>
+  <!-- Facebook Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1327422740634185'); // Insert your pixel ID here.
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1327422740634185&ev=PageView&noscript=1"
+    />
+  </noscript>
+  <!-- DO NOT MODIFY -->
+  <!-- End Facebook Pixel Code -->
+<?php 
+}
