@@ -1794,6 +1794,8 @@ else return '<a class="price-login" href="/?p=195">Login</a> o <a class="price-l
 // old snippet [2014]:
 // http://presscustomizr.com/snippet/changing-default-image-sizes-customizr/
 
+// for fp thumbnails:
+
 add_filter( 'fpc_size', 'my_thumb_size');
 function my_thumb_size() {
     $sizeinfo = array( 'width' => 370 , 'height' => 200, 'crop' => false );
@@ -1815,6 +1817,20 @@ function my_thumb_size() {
 //     height: auto !important;
 // }
 
+// for sliders:
+
+add_filter( 'tc_slider_size', 'my_boxed_slider_size'); // boxed slider
+function my_boxed_slider_size() {
+    $sizeinfo = array( 'width' => 1170 , 'height' => 800, 'crop' => true );
+    return $sizeinfo;
+}
+
+add_filter( 'tc_slider_full_size', 'my_fullWidth_slider_size'); // full-width slider
+function my_fullWidth_slider_size() {
+    $sizeinfo = array( 'width' => 99999 , 'height' => 800, 'crop' => true );
+    return $sizeinfo;
+}
+
 // http://docs.presscustomizr.com/article/36-image-sizes-in-the-customizr-theme
 // used on the 2017 Unifor Media One website
 
@@ -1833,12 +1849,12 @@ function add_pixelcode() { ?>
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1327422740634185'); // Insert your pixel ID here.
+    fbq('init', '1234567890987654321'); // Insert your pixel ID here.
     fbq('track', 'PageView');
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1327422740634185&ev=PageView&noscript=1"
+      src="https://www.facebook.com/tr?id=1234567890987654321&ev=PageView&noscript=1"
     />
   </noscript>
   <!-- DO NOT MODIFY -->
