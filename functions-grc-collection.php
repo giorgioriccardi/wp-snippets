@@ -1861,3 +1861,22 @@ function add_pixelcode() { ?>
   <!-- End Facebook Pixel Code -->
 <?php 
 }
+
+
+
+/********************************************************/ 
+/* Apply Custom CSS to Admin Area
+/********************************************************/ 
+/* remove warning in Customizr editor */
+/* ".../customizr-pro/addons/wfc/front/assets/css/dyn-style.php?is_customizing=false" */
+add_action('admin_head', 'custom_remove_error_message');
+
+function custom_remove_error_message() {
+  echo '<style>
+    .mce-widget.mce-notification.mce-notification-error.mce-has-close {
+    display: none;
+  }
+  </style>';
+}
+// https://css-tricks.com/snippets/wordpress/apply-custom-css-to-admin-area/
+/* https://wordpress.org/support/topic/error-failed-to-load-content-css/page/2/#post-9371633 */
