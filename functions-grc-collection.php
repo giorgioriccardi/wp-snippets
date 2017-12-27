@@ -189,9 +189,9 @@ add_filter( 'widget_archives_dropdown_args', 'my_limit_archives', 10, 1 );
 
 
 
-// GRC
+/********************************************************/
 //  Limit archives widget to display only 3 years
-
+/********************************************************/
 function my_limit_archives($args){
     //echo "<li class='extra-link'><a href='/archive-samples/'>All previous Posts</a></li>";
     //$args['limit'] = 6; // default is monthly
@@ -208,24 +208,25 @@ add_filter( 'widget_archives_args', 'my_limit_archives' );
 
 
 
-
-// GRC
+/********************************************************/
 //  Excludes certain categories
-
-// function widget_categories_args_filter( $cat_args ) {
-//     $exclude_arr = array( 843, 838 ); //here the id of the categories to exclude
+/********************************************************/
+function widget_categories_args_filter( $cat_args ) {
+    $exclude_arr = array( 843, 838 ); //here the id of the categories to exclude
     
-//     if( isset( $cat_args['exclude'] ) && !empty( $cat_args['exclude'] ) )
-//         $exclude_arr = array_unique( array_merge( explode( ',', $cat_args['exclude'] ), $exclude_arr ) );
-//     $cat_args['exclude'] = implode( ',', $exclude_arr );
-//     return $cat_args;
-// }
+    if( isset( $cat_args['exclude'] ) && !empty( $cat_args['exclude'] ) )
+        $exclude_arr = array_unique( array_merge( explode( ',', $cat_args['exclude'] ), $exclude_arr ) );
+    $cat_args['exclude'] = implode( ',', $exclude_arr );
+    return $cat_args;
+}
 
-// add_filter( 'widget_categories_args', 'widget_categories_args_filter', 10, 1 );
+add_filter( 'widget_categories_args', 'widget_categories_args_filter', 10, 1 );
 
-// GRC
+
+
+/********************************************************/
 //  Includes certain categories
-
+/********************************************************/
 function widget_categories_args_filter( $cat_args ) {
     $include_arr = array( 843, 838 ); //here the id of the categories to include
     
@@ -238,6 +239,17 @@ function widget_categories_args_filter( $cat_args ) {
 add_filter( 'widget_categories_args', 'widget_categories_args_filter', 10, 1 );
 //https://codex.wordpress.org/Plugin_API/Filter_Reference/widget_categories_args
 
+
+
+/********************************************************/
+// Exclude Categories from Category Widget
+/********************************************************/
+function grc_custom_category_widget($args) {
+    $exclude = "212"; // FeATURED Category IDs to be excluded
+    $args["exclude"] = $exclude;
+    return $args;
+}
+add_filter("widget_categories_dropdown_args","grc_custom_category_widget");
 
 
 
@@ -1880,3 +1892,37 @@ function custom_remove_error_message() {
 }
 // https://css-tricks.com/snippets/wordpress/apply-custom-css-to-admin-area/
 /* https://wordpress.org/support/topic/error-failed-to-load-content-css/page/2/#post-9371633 */
+
+
+
+
+/********************************************************/
+// Remove the “ver” parameter from all enqueued CSS and JS files
+/********************************************************/
+function grc_remove_wp_ver_css_js( $src ) {
+    if ( strpos( $src, 'ver=' ) )
+        $src = remove_query_arg( 'ver', $src );
+    return $src;
+}
+add_filter( 'style_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
+add_filter( 'script_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
+// https://www.virendrachandak.com/techtalk/how-to-remove-wordpress-version-parameter-from-js-and-css-files/
+
+
+
+/****************************************************************/
+// Style widgets in WP dashboard
+/****************************************************************/
+add_action('admin_head', 'grc_wp_dashboard_custom_styles');
+
+function grc_wp_dashboard_custom_styles() {
+  echo '<style>
+    .widgets-php .rpwe-columns-3:first-child,
+    #widget-rpwe_widget-2-css {
+      display: none;
+    }
+  </style>';
+}
+
+
+
