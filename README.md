@@ -50,9 +50,9 @@ To add scripts to your theme. The `array()` parameter will be an array of depend
 ```
 function yourtheme_scripts() {
 
-    wp_enqueue_script( 'mikelaroy-foundation', get_template_directory_uri() . '/assets/js/app.js', array(), true );
+    wp_enqueue_script( 'griccardi-bootstrap4', get_template_directory_uri() . '/assets/js/app.js', array(), true );
 }
-add_action( 'wp_enqueue_scripts', 'yourtheme_scripts' );
+add_action( 'wp_enqueue_scripts', 'your_theme_scripts' );
 ```
 
 
