@@ -5,7 +5,7 @@
 /********************************************************/
 // Adding a Google Fonts
 /********************************************************/
-add_action( 'wp_enqueue_scripts', 'my_google_font' );
+add_action( 'wp_enqueue_scripts', 'grc_google_font' );
 function my_google_font() {
 	wp_enqueue_style( $handle = 'my-google-font', $src = 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic', $deps = array(), $ver = null, $media = null );
 }
@@ -127,7 +127,7 @@ function custom_excerpt($new_length = 20) {
   Credits 
   NON FUNZIONA CON CUSTOMIZR 3.2.x
 */
-    add_filter('tc_credits_display', 'my_custom_credits');
+    add_filter('tc_credits_display', 'grc_custom_credits');
     function my_custom_credits(){
       $credits = '';
       $newline_credits = '';
@@ -140,7 +140,7 @@ function custom_excerpt($new_length = 20) {
         <div class="span4 credits">
             <p> &middot; &copy; '.esc_attr( date( 'Y' ) ).' 
                 <a href="'.esc_url( home_url() ).'" title="'.esc_attr(get_bloginfo()).'" rel="bookmark">'.esc_attr(get_bloginfo()).'</a>
-                 &middot; '.($credits ? $credits : 'Designed by <a href="http://www.workingdesign.net/" target="_blank">Working Design Inc.</a>').' 
+                 &middot; '.($credits ? $credits : 'Designed by <a href="http://www.griccardi.com/" target="_blank">SSWS Ltd.</a>').' 
                  &middot;'.($newline_credits ? '<br />&middot; '.$newline_credits.' &middot;' : '').'</p>
         </div>';
 
@@ -150,7 +150,7 @@ function custom_excerpt($new_length = 20) {
       //   <div class="span4 credits">
       //       <p> &middot; &copy; '.esc_attr( date( 'Y' ) ).' 
       //           <a href="'.esc_url( home_url() ).'" title="'.esc_attr(get_bloginfo()).'" rel="bookmark">'.esc_attr(get_bloginfo()).'</a>
-      //            &middot; '.($credits ? $credits : 'Designed by <a href="http://www.workingdesign.net/" target="_blank">Working Design Inc.</a>').' 
+      //            &middot; '.($credits ? $credits : 'Designed by <a href="http://www.griccardi.com/" target="_blank">SSWS Ltd.</a>').' 
       //            &middot;'.($newline_credits ? '<br />&middot; '.$newline_credits.' &middot;' : '').'
       //           <img src="/wordpress/wp-content/themes/customizr-child/images/unifor_label_2000-38_web.png" alt="MediaUnion-mini-logo" width="30px" height="27px" />            
       //       </p>
@@ -189,8 +189,8 @@ function my_limit_archives($args){
   
     return $args;
 }
-add_filter( 'widget_archives_args', 'my_limit_archives', 10, 1 );
-add_filter( 'widget_archives_dropdown_args', 'my_limit_archives', 10, 1 );
+add_filter( 'widget_archives_args', 'grc_limit_archives', 10, 1 );
+add_filter( 'widget_archives_dropdown_args', 'grc_limit_archives', 10, 1 );
 
 
 
@@ -207,7 +207,7 @@ function my_limit_archives($args){
     );
     return $args;
 }
-add_filter( 'widget_archives_args', 'my_limit_archives' );
+add_filter( 'widget_archives_args', 'grc_limit_archives' );
 //http://codex.wordpress.org/Function_Reference/wp_get_archives
 
 
@@ -263,7 +263,7 @@ add_filter("widget_categories_dropdown_args","grc_custom_category_widget");
 /********************************************************/
 
 // Adds a widget area. It gets registered automatically as part of the array
-add_filter( 'tc_footer_widgets', 'my_footer_widgets');
+add_filter( 'tc_footer_widgets', 'grc_footer_widgets');
 function my_footer_widgets( $default_widgets_area ) {
     $default_widgets_area['footer_four'] = array(
           'name'                 => __( 'Footer Widget Area Four' , 'customizr' ),
@@ -273,10 +273,10 @@ function my_footer_widgets( $default_widgets_area ) {
 }
 
 // Style all the footer widgets so they take up the right space
-add_filter( 'footer_one_widget_class', 'my_footer_widget_class');
-add_filter( 'footer_two_widget_class', 'my_footer_widget_class');
-add_filter( 'footer_three_widget_class', 'my_footer_widget_class');
-add_filter( 'footer_four_widget_class', 'my_footer_widget_class');
+add_filter( 'footer_one_widget_class', 'grc_footer_widget_class');
+add_filter( 'footer_two_widget_class', 'grc_footer_widget_class');
+add_filter( 'footer_three_widget_class', 'grc_footer_widget_class');
+add_filter( 'footer_four_widget_class', 'grc_footer_widget_class');
 function my_footer_widget_class() {
     return 'span3';
 }
@@ -423,9 +423,9 @@ function remove_span9_navbar_display($output) {
 //GRC function to override the menu wrapper's class 
 /********************************************************/
 function my_custom_navbar_wrapper_class() {
-    echo apply_filters( 'my_custom_navbar_wrapper_class', 'navbar-wrapper clearfix span12' );
+    echo apply_filters( 'grc_custom_navbar_wrapper_class', 'navbar-wrapper clearfix span12' );
 }
-add_filter('tc_navbar_wrapper_class', 'my_custom_navbar_wrapper_class' );
+add_filter('tc_navbar_wrapper_class', 'grc_custom_navbar_wrapper_class' );
 
 
 // prevent the output of tc_social_in_header:
@@ -449,21 +449,21 @@ function prevent_tagline_display($output) {
 
 
 //GRC function to override the logo class 
-add_filter('tc_logo_text_display', 'my_logo_display');
-add_filter('tc_logo_img_display', 'my_logo_display');
+add_filter('tc_logo_text_display', 'grc_logo_display');
+add_filter('tc_logo_img_display', 'grc_logo_display');
 function my_logo_display($output) {
   return preg_replace('/brand span3/', 'brand span12', $output, -1);
 }
 
 //questo e' un estratto di quello sotto ed anche una evoluzione di quello sopra
-add_filter('tc_logo_class', 'my_logo_class', 15);
+add_filter('tc_logo_class', 'grc_logo_class', 15);
 function my_logo_class($classes){
     return str_replace('span3', 'span12', $classes);
 }
 
 //Change logo/navbar classes
-add_filter('tc_navbar_wrapper_class', 'my_header_elements_class');
-add_filter('tc_logo_class', 'my_header_elements_class', 15);
+add_filter('tc_navbar_wrapper_class', 'grc_header_elements_class');
+add_filter('tc_logo_class', 'grc_header_elements_class', 15);
 function my_header_elements_class($classes){
     // remember replacements sum must be == 12 to have them side by side
     // the default proportion is: logo 3 - navbar 9
@@ -511,7 +511,7 @@ function exclude_images_from_search_results(){
 /********************************************************/
 // Change the post title tag to h2 / h3
 /********************************************************/
-add_filter('tc_content_title_tag' , 'my_title_tag');
+add_filter('tc_content_title_tag' , 'grc_title_tag');
 function my_title_tag() {
     return 'h3';
 }
@@ -521,7 +521,7 @@ function my_title_tag() {
 /********************************************************/
 //Linking the whole slide’s picture to a page/post in Customizr
 /********************************************************/
-add_filter('tc_slide_background' , 'my_slide_link', 10, 2);
+add_filter('tc_slide_background' , 'grc_slide_link', 10, 2);
 function my_slide_link( $slide_image , $slide_link) {
     return sprintf('<a href="%1$s">%2$s</a>',
         $slide_link,
@@ -534,7 +534,7 @@ function my_slide_link( $slide_image , $slide_link) {
 /********************************************************/
 //Adding a link in the WordPress tagline
 /********************************************************/
-add_filter( 'tc_tagline_display' , 'my_link_in_tagline');
+add_filter( 'tc_tagline_display' , 'grc_link_in_tagline');
 function my_link_in_tagline() {
     global $wp_current_filter;
     ?>
@@ -559,7 +559,7 @@ function my_link_in_tagline() {
 
 
 /********************************************************/
-//Change the WordPress Login Logo
+// Change the WordPress Login Logo old version 1.0
 /********************************************************/
 function custom_login_logo() {
 echo '
@@ -575,14 +575,71 @@ add_action('login_head', 'custom_login_logo');
 function my_login_logo_url() {
     return get_bloginfo( 'url' );
 }
-add_filter( 'login_headerurl', 'my_login_logo_url' );
+add_filter( 'login_headerurl', 'grc_login_logo_url' );
 
 function my_login_logo_url_title() {
     return 'Your Site Name and Info';
 }
-add_filter( 'login_headertitle', 'my_login_logo_url_title' );
-
+add_filter( 'login_headertitle', 'grc_login_logo_url_title' );
 //Here, the get_bloginfo(‘url’) is the URL of your blog, you can change that with whatever URL you may like, but don’t forget to add it between quotes.
+
+
+
+/********************************************************/
+// Change Login Logo ver. 2.0
+/********************************************************/
+function my_login_logo() { ?>
+    <style type="text/css">
+        #login h1 a, .login h1 a {
+            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/images/logo.png);
+            padding-bottom: 30px;
+            background-size: 436px 123px;
+            width: 436px;
+            height: 123px;
+        }
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'grc_login_logo' );
+
+// Change the Login Logo URL
+function my_login_logo_url() {
+  return get_bloginfo( 'url' );
+}
+add_filter( 'login_headerurl', 'grc_login_logo_url' );
+
+function my_login_logo_url_title() {
+  return 'La Carabattola - Home';
+}
+add_filter( 'login_headertitle', 'grc_login_logo_url_title' );
+
+// Change the Redirect URL
+function admin_login_redirect( $redirect_to, $request, $user ) {
+  global $user;
+  if( isset( $user->roles ) && is_array( $user->roles ) ) {
+    if( in_array( "administrator", $user->roles ) ) {
+      return $redirect_to;
+    } else {
+      return home_url();
+    }
+  }
+  else
+  {
+    return $redirect_to;
+  }
+}
+add_filter("login_redirect", "admin_login_redirect", 10, 3);
+
+// Set “Remember Me” To Checked
+function login_checked_remember_me() {
+  add_filter( 'login_footer', 'rememberme_checked' );
+}
+add_action( 'init', 'login_checked_remember_me' );
+
+function rememberme_checked() {
+  echo "<script>document.getElementById('rememberme').checked = true;</script>";
+}
+// https://premium.wpmudev.org/blog/customize-login-page/
+
 
 
 
@@ -793,7 +850,7 @@ $tb_position = "after"; /* "before" article-content or "after" article-content *
 /********************************************************/
 //Changing the default prefix : “Category Archives :”
 /********************************************************/
-add_filter('tc_category_archive_title' , 'my_cat_title');
+add_filter('tc_category_archive_title' , 'grc_cat_title');
 function my_cat_title($title) {
 return '';
 }
@@ -828,7 +885,7 @@ add_filter('pre_get_posts', 'exclude_category');
 /********************************************************/
 //Inheriting parent styles in WordPress child themes
 /********************************************************/
-add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'grc_theme_enqueue_styles' );
 function my_theme_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 }
@@ -954,7 +1011,7 @@ add_filter('pre_site_transient_update_themes', 'disable_wp_updates');
 //Customizing the post layout (content, thumbnail) in post lists [GRC version]
 /********************************************************/
 
-add_filter('tc_post_list_layout' , 'my_post_list_layout_options');
+add_filter('tc_post_list_layout' , 'grc_post_list_layout_options');
 function my_post_list_layout_options($layout) {
 
   //For custom post types
@@ -1015,7 +1072,7 @@ function my_pre_get_posts( $query ) {
   }
 }
 // Add our function to the pre_get_posts hook
-add_action( 'pre_get_posts', 'my_pre_get_posts' );
+add_action( 'pre_get_posts', 'grc_pre_get_posts' );
 
 // [example 2] --> for CPT
 function my_pre_get_posts( $query ) {
@@ -1032,7 +1089,7 @@ function my_pre_get_posts( $query ) {
   }
 }
 // Add our function to the pre_get_posts hook
-add_action( 'pre_get_posts', 'my_pre_get_posts' );
+add_action( 'pre_get_posts', 'grc_pre_get_posts' );
 // http://www.slideshare.net/anthonyhortin/wordpress-queries-the-right-way
 
 
@@ -1188,9 +1245,9 @@ add_action( 'template_redirect' , function() {
 //Show Featured Image in the Post page
 /********************************************************/
 
-add_filter( 'tc_content_headings_separator', 'my_thumbnail_post_image' ); //output the thumbnail after the title and the entry-meta
-//add_filter( '__after_content', 'my_thumbnail_post_image' );  //output the thumbnail after the content and before the comments
-//add_filter( '__before_content', 'my_thumbnail_post_image' ); //output the thumbnail before the title and after the breadcrumb
+add_filter( 'tc_content_headings_separator', 'grc_thumbnail_post_image' ); //output the thumbnail after the title and the entry-meta
+//add_filter( '__after_content', 'grc_thumbnail_post_image' );  //output the thumbnail after the content and before the comments
+//add_filter( '__before_content', 'grc_thumbnail_post_image' ); //output the thumbnail before the title and after the breadcrumb
 function my_thumbnail_post_image() {
   if ( is_single() && has_post_thumbnail() ) { //check if we are in the single post page && if the post has a featured image assigned to it.
 
@@ -1213,7 +1270,7 @@ function my_thumbnail_post_image() {
 // https://wordpress.org/support/topic/display-post-featured-image-below-title
 
 // Add the thumbnail before the content title
-add_action( '__before_content_title' , 'my_extra_thumbnail_on_posts_and_pages', 5);
+add_action( '__before_content_title' , 'grc_extra_thumbnail_on_posts_and_pages', 5);
 function my_extra_thumbnail_on_posts_and_pages() {
   if ( is_single()  && has_post_thumbnail() ) {
 
@@ -1234,7 +1291,7 @@ function my_extra_thumbnail_on_posts_and_pages() {
 }
 
 // Add row-fluid class to the page header, in order to add bootstrap span classes to thumbnail and heading/meta
-add_filter( 'tc_content_header_class', 'my_content_header_class' );
+add_filter( 'tc_content_header_class', 'grc_content_header_class' );
 function my_content_header_class($content_header_class) {
   if ( is_single()  && has_post_thumbnail() ) {
 
@@ -1246,7 +1303,7 @@ function my_content_header_class($content_header_class) {
 
 }
 // Add a bootstrap span class to the page title when on a single blog entry or a page -- bit of a hack, as it latches on to the code to add the format-icon class
-add_filter( 'tc_content_title_icon', 'my_content_title_icon' );
+add_filter( 'tc_content_title_icon', 'grc_content_title_icon' );
 function my_content_title_icon($icon_class) {
   if ( is_single()  && has_post_thumbnail() ) {
 
@@ -1259,7 +1316,7 @@ function my_content_title_icon($icon_class) {
 }
 
 // add a bootstrap span class to post metas when on a single blog entry or a page
-add_filter( 'tc_post_metas', 'my_post_metas' );
+add_filter( 'tc_post_metas', 'grc_post_metas' );
 function my_post_metas($html) {
   if ( is_single()  && has_post_thumbnail() ) {
 
@@ -1292,7 +1349,7 @@ function my_post_metas($html) {
 
 // for fp thumbnails:
 
-add_filter( 'fpc_size', 'my_thumb_size');
+add_filter( 'fpc_size', 'grc_thumb_size');
 function my_thumb_size() {
     $sizeinfo = array( 'width' => 370 , 'height' => 200, 'crop' => false );
     return $sizeinfo;
@@ -1323,13 +1380,13 @@ function my_thumb_size() {
 
 // for sliders:
 
-add_filter( 'tc_slider_size', 'my_boxed_slider_size'); // boxed slider
+add_filter( 'tc_slider_size', 'grc_boxed_slider_size'); // boxed slider
 function my_boxed_slider_size() {
     $sizeinfo = array( 'width' => 1170 , 'height' => 800, 'crop' => true );
     return $sizeinfo;
 }
 
-add_filter( 'tc_slider_full_size', 'my_fullWidth_slider_size'); // full-width slider
+add_filter( 'tc_slider_full_size', 'grc_fullWidth_slider_size'); // full-width slider
 function my_fullWidth_slider_size() {
     $sizeinfo = array( 'width' => 99999 , 'height' => 800, 'crop' => true );
     return $sizeinfo;
@@ -1345,7 +1402,7 @@ function my_fullWidth_slider_size() {
 /********************************************************/
 // Adding shortcode to a slider text [Customizr]
 /********************************************************/
-add_filter('tc_slide_text_length', 'my_tc_slide_text_length');
+add_filter('tc_slide_text_length', 'grc_tc_slide_text_length');
 function my_tc_slide_text_length(){
     return 500; /*change this value to suit your needs*/
 }
@@ -1388,7 +1445,7 @@ function navigate_in_same_taxonomy( $args ){
 /****************************************************************/ 
 /* Change Breadcrumb trail 'Home' to 'Custom Word' or Font Awesome icon
 /****************************************************************/
-add_filter( 'tc_breadcrumb_trail_args', 'my_breadcrumb_home_word' );
+add_filter( 'tc_breadcrumb_trail_args', 'grc_breadcrumb_home_word' );
 function my_breadcrumb_home_word($args) {
     $new_args = array(
              'container'  => 'div' ,        // div, nav, p, etc. [without this parameter it won't work]
@@ -1463,7 +1520,7 @@ add_action( 'wp_footer', 'insert_koine_info', 100);
 /************************************/
 
 // Add to your child-theme functions.php
-add_filter('get_search_form', 'my_search_form_text');
+add_filter('get_search_form', 'grc_search_form_text');
  
 function my_search_form_text($text) {
      $text = str_replace('value="Search"', 'value="Click me"', $text); //set as value the text you want
@@ -1552,7 +1609,7 @@ function custom_icon_phone_number_sidebar() {
 function my_custom_login() {
   echo '<link rel="stylesheet" type="text/css" href="' . get_bloginfo('stylesheet_directory') . '/login/custom-login-styles.css" />';
 }
-add_action('login_head', 'my_custom_login');
+add_action('login_head', 'grc_custom_login');
 // https://premium.wpmudev.org/blog/customize-login-page/
 
 
