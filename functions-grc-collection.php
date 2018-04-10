@@ -1917,3 +1917,15 @@ function grc_wp_dashboard_custom_styles() {
 
 
 
+/********************************************************/
+// Remove the “ver” parameter from all enqueued CSS and JS files
+/********************************************************/
+function grc_remove_wp_ver_css_js( $src ) {
+    if ( strpos( $src, 'ver=' ) )
+        $src = remove_query_arg( 'ver', $src );
+    return $src;
+}
+add_filter( 'style_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
+add_filter( 'script_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
+/* https://www.virendrachandak.com/techtalk/how-to-remove-wordpress-version-parameter-from-js-and-css-files/ */
+// GRC: though the versioning is quite important for caching
