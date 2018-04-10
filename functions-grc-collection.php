@@ -1278,23 +1278,60 @@ function my_post_metas($html) {
 
 
 
+/********************************************************/
+// Changing the default image sizes in Customizr-Pro
+/********************************************************/
+// old snippet [2014]:
+// still works with CTZ Pro 2.1.3
+// http://presscustomizr.com/snippet/changing-default-image-sizes-customizr/
 
-/********************************************************/
-// Changing the default image sizes in Customizr
-/********************************************************/
-// add_filter( 'tc_thumb_size', 'my_thumb_size'); // customizr free
-add_filter( 'fpc_size', 'my_thumb_size'); //the hook name has changed into 'fpc_size'
+// for fp thumbnails:
+
+add_filter( 'fpc_size', 'my_thumb_size');
 function my_thumb_size() {
-    $sizeinfo = array( 'width' => 360, 'height' => 235, 'crop' => true ); //render the featured images in a landscape format; works well with 3 FP
+    $sizeinfo = array( 'width' => 370 , 'height' => 200, 'crop' => false );
     return $sizeinfo;
 }
-// it requires a css tweak to overcome min-height: 250px;
-/* 
-  .fpc-widget-front .thumb-wrapper img {
-      min-height: 1px;
-  }
-*/
-// http://presscustomizr.com/snippet/changing-default-image-sizes-customizr/
+// fpc_size vs. tc_thumb_size [customizr-free]
+
+// it requires some custom styles dependings on the theme version, the size and on the layout settings:
+
+// .home .fpc-widget-front .round-div, {
+//     border-top-color: rgba(0,0,0,0) !important;
+//     border-right-color: rgba(0,0,0,0) !important;
+//     border-bottom-color: rgba(0,0,0,0) !important;
+//     border-left-color: rgba(0,0,0,0) !important;
+// }
+
+// .fp-thumb-wrapper .czr-link-mask::before {
+//   display: none !important;
+// }
+
+// .featured-page .fp-thumb-wrapper {
+//     max-width: 60%;
+// }
+
+// .fpc-widget-front .thumb-wrapper {
+//     width: 100%;
+//     height: auto !important;
+// }
+
+// for sliders:
+
+add_filter( 'tc_slider_size', 'my_boxed_slider_size'); // boxed slider
+function my_boxed_slider_size() {
+    $sizeinfo = array( 'width' => 1170 , 'height' => 800, 'crop' => true );
+    return $sizeinfo;
+}
+
+add_filter( 'tc_slider_full_size', 'my_fullWidth_slider_size'); // full-width slider
+function my_fullWidth_slider_size() {
+    $sizeinfo = array( 'width' => 99999 , 'height' => 800, 'crop' => true );
+    return $sizeinfo;
+}
+
+// http://docs.presscustomizr.com/article/36-image-sizes-in-the-customizr-theme
+// used on the 2017 Unifor Media One website
 
 
 
@@ -1794,57 +1831,6 @@ else return '<a class="price-login" href="/?p=195">Login</a> o <a class="price-l
 }
 // to show prices
 // add filter( 'woocommerce_show_variation_price', '__return_true' );
-
-
-
-
-
-
-/********************************************************/
-// Changing the default image sizes in Customizr-Pro
-/********************************************************/
-// old snippet [2014]:
-// http://presscustomizr.com/snippet/changing-default-image-sizes-customizr/
-
-// for fp thumbnails:
-
-add_filter( 'fpc_size', 'my_thumb_size');
-function my_thumb_size() {
-    $sizeinfo = array( 'width' => 370 , 'height' => 200, 'crop' => false );
-    return $sizeinfo;
-}
-// fpc_size vs. tc_thumb_size [customizr-free]
-
-// it requires custom styles:
-
-// .home .fpc-widget-front .round-div {
-//     border-top-color: rgba(0,0,0,0) !important;
-//     border-right-color: rgba(0,0,0,0) !important;
-//     border-bottom-color: rgba(0,0,0,0) !important;
-//     border-left-color: rgba(0,0,0,0) !important;
-// }
-
-// .fpc-widget-front .thumb-wrapper {
-//     width: 100%;
-//     height: auto !important;
-// }
-
-// for sliders:
-
-add_filter( 'tc_slider_size', 'my_boxed_slider_size'); // boxed slider
-function my_boxed_slider_size() {
-    $sizeinfo = array( 'width' => 1170 , 'height' => 800, 'crop' => true );
-    return $sizeinfo;
-}
-
-add_filter( 'tc_slider_full_size', 'my_fullWidth_slider_size'); // full-width slider
-function my_fullWidth_slider_size() {
-    $sizeinfo = array( 'width' => 99999 , 'height' => 800, 'crop' => true );
-    return $sizeinfo;
-}
-
-// http://docs.presscustomizr.com/article/36-image-sizes-in-the-customizr-theme
-// used on the 2017 Unifor Media One website
 
 
 
