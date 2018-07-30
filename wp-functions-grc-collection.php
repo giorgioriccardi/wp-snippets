@@ -24,7 +24,7 @@ function add_googleanalytics() {
         // Insert Analytics Code Here
         ?>
           <!-- Global site tag (gtag.js) - Google Analytics -->
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117149914-1"></script>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11xxxxxx-1"></script>
           <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
