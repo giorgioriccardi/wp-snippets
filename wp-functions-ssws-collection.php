@@ -1,6 +1,6 @@
 <?php
 
-//SSWS functions collection 
+// SSWS WordPress functions collection 
 
 /********************************************************/
 // Adding a Google Fonts
