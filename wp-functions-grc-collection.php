@@ -60,7 +60,6 @@ function custom_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
 
-
 //Two Different Excerpt Length's
 
 // GRC working:
@@ -84,8 +83,6 @@ function custom_excerpt($new_length = 20) {
 //<?php custom_excerpt(55) ? > // works as well
 //started from http://wordpress.org/support/topic/two-different-excerpt-lengths
 //implemented by Scott and GRC
-
-
 
 
 /********************************************************/
@@ -120,7 +117,6 @@ function custom_excerpt($new_length = 20) {
       ).'<div class="clearall"></div>' : '' );
   }
 /*end of GRC extra menus*/
-
 
 
 /*GRC 
@@ -160,9 +156,6 @@ function custom_excerpt($new_length = 20) {
 /*end of GRC credits*/
 
 
-
-
-
 /********************************************************/
 //  Limit archives widget to display only 6 months
 /********************************************************/
@@ -193,7 +186,6 @@ add_filter( 'widget_archives_args', 'grc_limit_archives', 10, 1 );
 add_filter( 'widget_archives_dropdown_args', 'grc_limit_archives', 10, 1 );
 
 
-
 /********************************************************/
 //  Limit archives widget to display only 3 years
 /********************************************************/
@@ -211,8 +203,6 @@ add_filter( 'widget_archives_args', 'grc_limit_archives' );
 //http://codex.wordpress.org/Function_Reference/wp_get_archives
 
 
-
-
 /********************************************************/
 //  Excludes certain categories
 /********************************************************/
@@ -226,7 +216,6 @@ function widget_categories_args_filter( $cat_args ) {
 }
 
 add_filter( 'widget_categories_args', 'widget_categories_args_filter', 10, 1 );
-
 
 
 /********************************************************/
@@ -245,7 +234,6 @@ add_filter( 'widget_categories_args', 'widget_categories_args_filter', 10, 1 );
 //https://codex.wordpress.org/Plugin_API/Filter_Reference/widget_categories_args
 
 
-
 /********************************************************/
 // Exclude Categories from Category Widget
 /********************************************************/
@@ -255,7 +243,6 @@ function grc_custom_category_widget($args) {
     return $args;
 }
 add_filter("widget_categories_dropdown_args","grc_custom_category_widget");
-
 
 
 /********************************************************/
@@ -282,7 +269,6 @@ function grc_footer_widget_class() {
 }
 
 
-
 /********************************************************/
 //Add Search Form in your Post with a WordPress Search Shortcode
 /********************************************************/
@@ -307,8 +293,6 @@ add_shortcode('wpbsearch', 'wpbsearchform');
     //search form in the header can be easly replaced with this:
 
 
-
-
 /********************************************************/
 //ADDING AN HTML5 SEARCH FORM IN YOUR WORDPRESS MENU
 /********************************************************/
@@ -331,7 +315,6 @@ function add_search_form_to_menu($items, $args) {
 //http://www.themesandco.com/snippet/adding-an-html5-search-form-in-your-wordpress-menu/
 
 
-
 /********************************************************/
 // Remove 3-bars from menu button
 /********************************************************/
@@ -341,7 +324,6 @@ function rdc_menu_display($output) {
 }
 // requires css content: "Menu";
 // http://themesandco.com/snippet/add-menu-text-3-bar-menu-button/
-
 
 
 /********************************************************/
@@ -389,7 +371,6 @@ function search_content_highlight() {
 //<!-- http://wordpress.stackexchange.com/questions/16070/how-to-highlight-search-terms-without-plugin -->
 
 
-
 //different version of the higlighted search function, it does not requires snippets:
 
 //http://bradsknutson.com/blog/highlight-search-terms-wordpress/
@@ -405,7 +386,6 @@ add_filter('the_title', 'highlight_search_term');
 add_filter('the_content', 'highlight_search_term');
 
 //<!-- end of HIGHLIGHT THE SEARCH TERMS IN RESULTS -->
-
 
 
 /********************************************************/
@@ -507,7 +487,6 @@ function exclude_images_from_search_results(){
 //http://themesandco.com/snippet/exclude-images-attachments-search-results/
 
 
-
 /********************************************************/
 // Change the post title tag to h2 / h3
 /********************************************************/
@@ -515,7 +494,6 @@ add_filter('tc_content_title_tag' , 'grc_title_tag');
 function grc_title_tag() {
     return 'h3';
 }
-
 
 
 /********************************************************/
@@ -528,7 +506,6 @@ function grc_slide_link( $slide_image , $slide_link) {
         $slide_image
     );
 }
-
 
 
 /********************************************************/
@@ -555,7 +532,14 @@ function grc_link_in_tagline() {
 }
 
 
-
+/********************************************************/
+/* Custom Login Page
+/********************************************************/
+function grc_custom_login() {
+  echo '<link rel="stylesheet" type="text/css" href="' . get_bloginfo('stylesheet_directory') . '/login/custom-login-styles.css" />';
+}
+add_action('login_head', 'grc_custom_login');
+// https://premium.wpmudev.org/blog/customize-login-page/
 
 
 /********************************************************/
@@ -641,8 +625,6 @@ function rememberme_checked() {
 // https://premium.wpmudev.org/blog/customize-login-page/
 
 
-
-
 /********************************************************/
 //Make Archives.php Include Custom Post Types
 /********************************************************/
@@ -660,7 +642,6 @@ function namespace_add_custom_types( $query ) {
 add_filter( 'pre_get_posts', 'namespace_add_custom_types' );
 
 //http://css-tricks.com/snippets/wordpress/make-archives-php-include-custom-post-types/
-
 
 
 /********************************************************/
@@ -705,7 +686,6 @@ function widget_first_last_classes($params) {
 }
 add_filter('dynamic_sidebar_params','widget_first_last_classes');
 //https://wordpress.org/support/topic/how-to-first-and-last-css-classes-for-sidebar-widgets?replies=9
-
 
 
 /********************************************************/
@@ -791,7 +771,6 @@ return $html.' '.$recent_post;
 // End of ADDING AN UPDATE STATUS NEXT TO POST TITLES IN WORDPRESS, 3 options
 
 
-
 /********************************************************/
 //Post list thumbnails reordering in small viewports
 /********************************************************/
@@ -846,7 +825,6 @@ $tb_position = "after"; /* "before" article-content or "after" article-content *
 //http://themesandco.com/snippet/post-list-thumbnails-reordering/
 
 
-
 /********************************************************/
 //Changing the default prefix : “Category Archives :”
 /********************************************************/
@@ -855,8 +833,6 @@ function grc_cat_title($title) {
 return '';
 }
 //http://themesandco.com/snippet/changing-the-title-of-the-categories-archive-pages/
-
-
 
 
 /********************************************************/
@@ -877,9 +853,6 @@ add_filter('pre_get_posts', 'exclude_category');
 //      }
 // ? >
 //http://codex.wordpress.org/Function_Reference/query_posts
-
-
-
 
 
 /********************************************************/
@@ -906,9 +879,6 @@ add_action( 'wp_enqueue_scripts', 'get_parent_theme_css' );
 //http://mor10.com/challenges-new-method-inheriting-parent-styles-wordpress-child-themes/
 
 
-
-
-
 /********************************************************/
 //Allow SVG through WordPress Media Uploader
 /********************************************************/
@@ -917,9 +887,6 @@ function cc_mime_types($mimes) {
   return $mimes;
 }
 add_filter('upload_mimes', 'cc_mime_types');
-
-
-
 
 
 /********************************************************/
@@ -970,8 +937,6 @@ function set_fp_item_order() {
 //http://themesandco.com/snippet/reordering-featured-page-elements-title-image-text-button/
 
 
-
-
 /********************************************************/
 // DISABLE WordPress notifications
 /********************************************************/
@@ -1004,7 +969,6 @@ add_filter('pre_site_transient_update_themes', 'disable_wp_updates');
 //http://stackoverflow.com/questions/11821419/wordpress-plugin-notifications/14935077#14935077
 
 //end of WordPress notifications
-
 
 
 /********************************************************/
@@ -1053,7 +1017,6 @@ function grc_post_list_layout_options($layout) {
 //http://themesandco.com/snippet/customizing-post-layout-content-thumbnail-archive-post-lists/
 
 
-
 // pre_get_posts
 
 // we can change our main query before it runs
@@ -1093,7 +1056,6 @@ add_action( 'pre_get_posts', 'grc_pre_get_posts' );
 // http://www.slideshare.net/anthonyhortin/wordpress-queries-the-right-way
 
 
-
 /********************************************************/
 // Add Font Awesome CDN
 /********************************************************/
@@ -1109,10 +1071,8 @@ wp_enqueue_style( 'prefix-font-awesome', '//netdna.bootstrapcdn.com/font-awesome
 // http://ozzyrodriguez.com/tutorials/font-awesome-wordpress-cdn/
 
 
-
-
 /********************************************************/
-// GPS track filEs allowed
+// GPS track files allowed
 /********************************************************/
 function cc_mime_types($mimes) {
   $mimes['gpx'] = 'text/gpx+xml';
@@ -1138,8 +1098,6 @@ function cc_mime_types($mimes) {
 }
 add_filter('upload_mimes', 'cc_mime_types');
 // http://blog.chrismeller.com/modifying-allowed-upload-types-in-wordpress
-
-
 
 
 /********************************************************/
@@ -1173,8 +1131,6 @@ function child_add_scripts() {
 // http://codex.wordpress.org/Function_Reference/wp_enqueue_script#jQuery_noConflict_Wrappers
 
 
-
-
 /********************************************************/
 // Redirect To Post If Search Results Return One Post
 /********************************************************/
@@ -1191,9 +1147,6 @@ function redirect_single_post() {
     }
 }
 //source: http://www.paulund.co.uk/redirect-search-results-return-one-post
-
-
-
 
 
 /********************************************************/
@@ -1213,9 +1166,6 @@ function wpc_add_dashboard_widgets() {
 add_action('wp_dashboard_setup', 'wpc_add_dashboard_widgets' );
 
 
-
-
-
 /********************************************************/ 
 /* Use a Local or External Copy of Font Awesome
 /********************************************************/  
@@ -1227,9 +1177,6 @@ add_action('wp_enqueue_scripts','enqueue_our_required_stylesheets');
 // http://www.sitepoint.com/using-font-awesome-with-wordpress/
 
 
-
-
-
 /********************************************************/ 
 /* Redirect a category or any CPT or taxonomy
 /********************************************************/  
@@ -1238,7 +1185,6 @@ add_action( 'template_redirect' , function() {
     wp_redirect( 'http://xzy.com/news/', 301 ); exit;
   }
 });
-
 
 
 /********************************************************/
@@ -1259,7 +1205,6 @@ function grc_thumbnail_post_image() {
   }
 }
 //https://wordpress.org/support/topic/featured-images-to-show-in-post
-
 
 
 // ============================================================ //
@@ -1338,8 +1283,6 @@ function grc_post_metas($html) {
 
 
 
-
-
 /********************************************************/
 // Changing the default image sizes in Customizr-Pro
 /********************************************************/
@@ -1396,9 +1339,6 @@ function grc_fullWidth_slider_size() {
 // used on the 2017 Unifor Media One website
 
 
-
-
-
 /********************************************************/
 // Adding shortcode to a slider text [Customizr]
 /********************************************************/
@@ -1424,9 +1364,6 @@ function do_html($attr, $content){
 // https://wordpress.org/support/topic/adding-shortcode-to-a-sliders-text
 
 
-
-
-
 /********************************************************/
 // Restrict the post navigation to the same category [Customizr]
 /********************************************************/
@@ -1437,9 +1374,6 @@ function navigate_in_same_taxonomy( $args ){
   return $args;
 }
 //http://presscustomizr.com/snippet/restrict-post-navigation-category/
-
-
-
 
 
 /****************************************************************/ 
@@ -1459,8 +1393,6 @@ function grc_breadcrumb_home_word($args) {
 // http://presscustomizr.com/snippet/change-word-home-breadcrumb-trail/
 
 
-
-
 /********************************************************/
 // Adding Dashicons in WordPress Front-end
 /********************************************************/
@@ -1468,8 +1400,6 @@ add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
 function load_dashicons_front_end() {
   wp_enqueue_style( 'dashicons' );
 }
-
-
 
 /********************************************************/ 
 /* Insert Extra Info in the Footer
@@ -1511,10 +1441,6 @@ add_action( 'wp_footer', 'insert_koine_info', 100);
 //https://codex.wordpress.org/Plugin_API/Action_Reference/wp_footer
 
 
-
-
-
-
 /************************************/
 /* Change Search Button Text
 /************************************/
@@ -1530,9 +1456,6 @@ function grc_search_form_text($text) {
 // the 'value="Search"' needs to be replaced accordingly to the default WP language installation
 // 'value="Cerca"' for Italian
 // 'value="Suche"' for German and so on...
-
-
-
 
 
 /********************************************************/
@@ -1602,19 +1525,6 @@ function custom_icon_phone_number_sidebar() {
 // http://presscustomizr.com/snippet/adding-custom-social-profile-link-icon-header/
 
 
-
-/********************************************************/
-/* Custom Login Page
-/********************************************************/
-function grc_custom_login() {
-  echo '<link rel="stylesheet" type="text/css" href="' . get_bloginfo('stylesheet_directory') . '/login/custom-login-styles.css" />';
-}
-add_action('login_head', 'grc_custom_login');
-// https://premium.wpmudev.org/blog/customize-login-page/
-
-
-
-
 /********************************************************/
 // disable WordPress Heartbeat API completely
 /********************************************************/
@@ -1623,8 +1533,6 @@ function stop_heartbeat() {
  wp_deregister_script('heartbeat');
 }
 // http://www.inspire2rise.com/how-to-disable-wordpress-heartbeat-api.html
-
-
 
 
 /***********************************************************/
@@ -1640,8 +1548,6 @@ function posts_in_category($query){
 // https://www.webhostinghero.com/change-the-number-of-posts-category-wordpress/
 
 
-
-
 /********************************************************/
 // * Enables the Excerpt meta box in Page edit screen.
 /********************************************************/
@@ -1649,8 +1555,6 @@ function wpcodex_add_excerpt_support_for_pages() {
   add_post_type_support( 'page', 'excerpt' );
 }
 add_action( 'init', 'wpcodex_add_excerpt_support_for_pages' );
-
-
 
 
 
@@ -1673,8 +1577,6 @@ function add_disableLinks() {
     </script>
   <?php 
 }
-
-
 
 
 /********************************************************/
@@ -1710,8 +1612,6 @@ function add_current_nav_class($classes, $item) {
 // https://gist.github.com/gerbenvandijk/5253921
 
 
-
-
 /********************************************************/
 // Open External Links In New Window
 /********************************************************/
@@ -1735,8 +1635,6 @@ function add_openExternalLinksNewTab() {
   <?php
 }
 // https://css-tricks.com/snippets/jquery/open-external-links-in-new-window/
-
-
 
 
 /********************************************************/
@@ -1778,8 +1676,6 @@ function new_wp_trim_excerpt($text) {
 remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 add_filter('get_the_excerpt', 'new_wp_trim_excerpt');
 //  www.lewayotte.com/2010/09/22/allowing-hyperlinks-in-your-wordpress-excerpts
-
-
 
 
 /********************************************************/
@@ -1845,7 +1741,6 @@ return $html.' '.$recent_post;
 // End of ADDING AN UPDATE STATUS NEXT TO POST TITLES IN WORDPRESS, 2 options
 
 
-
 /********************************************************/
 // CUSTOMIZR UPDATE TC_ to CZR_
 /********************************************************/
@@ -1859,9 +1754,6 @@ One exception : the function tc__f() has been kept unchanged for retro-compatibi
 // tc__f
 // czr_fn__f
 */
-
-
-
 
 
 /********************************************************/
@@ -1878,9 +1770,6 @@ function special_nav_class ($classes, $item) {
 // https://codex.wordpress.org/Plugin_API/Filter_Reference/nav_menu_css_class
 
 
-
-
-
 /********************************************************/
 // WooCommerce hide or show prices for users
 /********************************************************/
@@ -1893,8 +1782,6 @@ else return '<a class="price-login" href="/?p=195">Login</a> o <a class="price-l
 }
 // to show prices
 // add filter( 'woocommerce_show_variation_price', '__return_true' );
-
-
 
 
 /********************************************************/
@@ -1923,7 +1810,6 @@ function add_pixelcode() { ?>
 }
 
 
-
 /********************************************************/ 
 /* Apply Custom CSS to Admin Area
 /********************************************************/ 
@@ -1942,8 +1828,6 @@ function custom_remove_error_message() {
 /* https://wordpress.org/support/topic/error-failed-to-load-content-css/page/2/#post-9371633 */
 
 
-
-
 /********************************************************/
 // Remove the “ver” parameter from all enqueued CSS and JS files
 /********************************************************/
@@ -1955,7 +1839,6 @@ function grc_remove_wp_ver_css_js( $src ) {
 add_filter( 'style_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
 add_filter( 'script_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
 // https://www.virendrachandak.com/techtalk/how-to-remove-wordpress-version-parameter-from-js-and-css-files/
-
 
 
 /****************************************************************/
@@ -1973,7 +1856,6 @@ function grc_wp_dashboard_custom_styles() {
 }
 
 
-
 /********************************************************/
 // Remove the “ver” parameter from all enqueued CSS and JS files
 /********************************************************/
@@ -1986,3 +1868,19 @@ add_filter( 'style_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
 add_filter( 'script_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
 /* https://www.virendrachandak.com/techtalk/how-to-remove-wordpress-version-parameter-from-js-and-css-files/ */
 // GRC: though the versioning is quite important for caching
+
+
+/********************************************************/
+// add custom key/value pair to WP Rest
+/********************************************************/
+function ssws_custom_rest()
+{
+    register_rest_field('post', 'authorName', array(
+        'get_callback' => function () {return get_the_author();},
+    ));
+    register_rest_field('trackCPT', 'trackCPTName', array(
+        'get_callback' => function () {return get_the_title();},
+    ));
+}
+
+add_action('rest_api_init', 'ssws_custom_rest');
