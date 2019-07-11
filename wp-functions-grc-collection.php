@@ -1,12 +1,12 @@
 <?php
 
-//GRC functions collection 
+//SSWS functions collection 
 
 /********************************************************/
 // Adding a Google Fonts
 /********************************************************/
-add_action( 'wp_enqueue_scripts', 'grc_google_font' );
-function grc_google_font() {
+add_action( 'wp_enqueue_scripts', 'ssws_google_font' );
+function ssws_google_font() {
 	wp_enqueue_style( $handle = 'my-google-font', $src = 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic', $deps = array(), $ver = null, $media = null );
 }
 //<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -62,7 +62,7 @@ add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
 //Two Different Excerpt Length's
 
-// GRC working:
+// SSWS working:
 function custom_excerpt($new_length = 20) {
   
   add_filter('excerpt_length', function () use ($new_length) {
@@ -79,10 +79,10 @@ function custom_excerpt($new_length = 20) {
 
 // requires this snippet in the page template:
 //<?php custom_excerpt(55, '<a class="moretag" href="' . get_permalink( get_the_ID() ) . '"&gt; READ MORE</a>') ? >
-//grc 02/2015:
+//ssws 02/2015:
 //<?php custom_excerpt(55) ? > // works as well
 //started from http://wordpress.org/support/topic/two-different-excerpt-lengths
-//implemented by Scott and GRC
+//implemented by Scott and SSWS
 
 
 /********************************************************/
@@ -103,7 +103,7 @@ function custom_excerpt($new_length = 20) {
 
 //http://themesandco.com/snippet/adding-extra-menus-customizr/
   
-/*GRC 
+/*SSWS 
   the secondary menu it is displayed manually in the footer hooks file*/
   
   // display function for your menu:
@@ -116,19 +116,19 @@ function custom_excerpt($new_length = 20) {
           )
       ).'<div class="clearall"></div>' : '' );
   }
-/*end of GRC extra menus*/
+/*end of SSWS extra menus*/
 
 
-/*GRC 
+/*SSWS 
   Credits 
   NON FUNZIONA CON CUSTOMIZR 3.2.x
 */
-    add_filter('tc_credits_display', 'grc_custom_credits');
-    function grc_custom_credits(){
+    add_filter('tc_credits_display', 'ssws_custom_credits');
+    function ssws_custom_credits(){
       $credits = '';
       $newline_credits = '';
       
-/*GRC
+/*SSWS
 
         /*<div class="span4 credits">*/
 
@@ -153,14 +153,14 @@ function custom_excerpt($new_length = 20) {
       //   </div>';
 
   }
-/*end of GRC credits*/
+/*end of SSWS credits*/
 
 
 /********************************************************/
 //  Limit archives widget to display only 6 months
 /********************************************************/
 
-function grc_limit_archives($args){
+function ssws_limit_archives($args){
   echo "<li class='extra-link'><a href='/archive/'>Older Posts</a></li>";
   // it requires a page named archive with a custom template with this loop:
   // https://codex.wordpress.org/Creating_an_Archive_Index
@@ -182,14 +182,14 @@ function grc_limit_archives($args){
   
     return $args;
 }
-add_filter( 'widget_archives_args', 'grc_limit_archives', 10, 1 );
-add_filter( 'widget_archives_dropdown_args', 'grc_limit_archives', 10, 1 );
+add_filter( 'widget_archives_args', 'ssws_limit_archives', 10, 1 );
+add_filter( 'widget_archives_dropdown_args', 'ssws_limit_archives', 10, 1 );
 
 
 /********************************************************/
 //  Limit archives widget to display only 3 years
 /********************************************************/
-function grc_limit_archives($args){
+function ssws_limit_archives($args){
     //echo "<li class='extra-link'><a href='/archive-samples/'>All previous Posts</a></li>";
     //$args['limit'] = 6; // default is monthly
     $args = array(
@@ -199,7 +199,7 @@ function grc_limit_archives($args){
     );
     return $args;
 }
-add_filter( 'widget_archives_args', 'grc_limit_archives' );
+add_filter( 'widget_archives_args', 'ssws_limit_archives' );
 //http://codex.wordpress.org/Function_Reference/wp_get_archives
 
 
@@ -237,12 +237,12 @@ add_filter( 'widget_categories_args', 'widget_categories_args_filter', 10, 1 );
 /********************************************************/
 // Exclude Categories from Category Widget
 /********************************************************/
-function grc_custom_category_widget($args) {
+function ssws_custom_category_widget($args) {
     $exclude = "212"; // FeATURED Category IDs to be excluded
     $args["exclude"] = $exclude;
     return $args;
 }
-add_filter("widget_categories_dropdown_args","grc_custom_category_widget");
+add_filter("widget_categories_dropdown_args","ssws_custom_category_widget");
 
 
 /********************************************************/
@@ -250,8 +250,8 @@ add_filter("widget_categories_dropdown_args","grc_custom_category_widget");
 /********************************************************/
 
 // Adds a widget area. It gets registered automatically as part of the array
-add_filter( 'tc_footer_widgets', 'grc_footer_widgets');
-function grc_footer_widgets( $default_widgets_area ) {
+add_filter( 'tc_footer_widgets', 'ssws_footer_widgets');
+function ssws_footer_widgets( $default_widgets_area ) {
     $default_widgets_area['footer_four'] = array(
           'name'                 => __( 'Footer Widget Area Four' , 'customizr' ),
           'description'          => __( 'Just use it as you want !' , 'customizr' )
@@ -260,11 +260,11 @@ function grc_footer_widgets( $default_widgets_area ) {
 }
 
 // Style all the footer widgets so they take up the right space
-add_filter( 'footer_one_widget_class', 'grc_footer_widget_class');
-add_filter( 'footer_two_widget_class', 'grc_footer_widget_class');
-add_filter( 'footer_three_widget_class', 'grc_footer_widget_class');
-add_filter( 'footer_four_widget_class', 'grc_footer_widget_class');
-function grc_footer_widget_class() {
+add_filter( 'footer_one_widget_class', 'ssws_footer_widget_class');
+add_filter( 'footer_two_widget_class', 'ssws_footer_widget_class');
+add_filter( 'footer_three_widget_class', 'ssws_footer_widget_class');
+add_filter( 'footer_four_widget_class', 'ssws_footer_widget_class');
+function ssws_footer_widget_class() {
     return 'span3';
 }
 
@@ -400,12 +400,12 @@ function remove_span9_navbar_display($output) {
 
 
 /********************************************************/
-//GRC function to override the menu wrapper's class 
+//SSWS function to override the menu wrapper's class 
 /********************************************************/
-function grc_custom_navbar_wrapper_class() {
-    echo apply_filters( 'grc_custom_navbar_wrapper_class', 'navbar-wrapper clearfix span12' );
+function ssws_custom_navbar_wrapper_class() {
+    echo apply_filters( 'ssws_custom_navbar_wrapper_class', 'navbar-wrapper clearfix span12' );
 }
-add_filter('tc_navbar_wrapper_class', 'grc_custom_navbar_wrapper_class' );
+add_filter('tc_navbar_wrapper_class', 'ssws_custom_navbar_wrapper_class' );
 
 
 // prevent the output of tc_social_in_header:
@@ -428,23 +428,23 @@ function prevent_tagline_display($output) {
 }
 
 
-//GRC function to override the logo class 
-add_filter('tc_logo_text_display', 'grc_logo_display');
-add_filter('tc_logo_img_display', 'grc_logo_display');
-function grc_logo_display($output) {
+//SSWS function to override the logo class 
+add_filter('tc_logo_text_display', 'ssws_logo_display');
+add_filter('tc_logo_img_display', 'ssws_logo_display');
+function ssws_logo_display($output) {
   return preg_replace('/brand span3/', 'brand span12', $output, -1);
 }
 
 //questo e' un estratto di quello sotto ed anche una evoluzione di quello sopra
-add_filter('tc_logo_class', 'grc_logo_class', 15);
-function grc_logo_class($classes){
+add_filter('tc_logo_class', 'ssws_logo_class', 15);
+function ssws_logo_class($classes){
     return str_replace('span3', 'span12', $classes);
 }
 
 //Change logo/navbar classes
-add_filter('tc_navbar_wrapper_class', 'grc_header_elements_class');
-add_filter('tc_logo_class', 'grc_header_elements_class', 15);
-function grc_header_elements_class($classes){
+add_filter('tc_navbar_wrapper_class', 'ssws_header_elements_class');
+add_filter('tc_logo_class', 'ssws_header_elements_class', 15);
+function ssws_header_elements_class($classes){
     // remember replacements sum must be == 12 to have them side by side
     // the default proportion is: logo 3 - navbar 9
     $src_rep_classes = array(
@@ -490,8 +490,8 @@ function exclude_images_from_search_results(){
 /********************************************************/
 // Change the post title tag to h2 / h3
 /********************************************************/
-add_filter('tc_content_title_tag' , 'grc_title_tag');
-function grc_title_tag() {
+add_filter('tc_content_title_tag' , 'ssws_title_tag');
+function ssws_title_tag() {
     return 'h3';
 }
 
@@ -499,8 +499,8 @@ function grc_title_tag() {
 /********************************************************/
 //Linking the whole slide’s picture to a page/post in Customizr
 /********************************************************/
-add_filter('tc_slide_background' , 'grc_slide_link', 10, 2);
-function grc_slide_link( $slide_image , $slide_link) {
+add_filter('tc_slide_background' , 'ssws_slide_link', 10, 2);
+function ssws_slide_link( $slide_image , $slide_link) {
     return sprintf('<a href="%1$s">%2$s</a>',
         $slide_link,
         $slide_image
@@ -511,8 +511,8 @@ function grc_slide_link( $slide_image , $slide_link) {
 /********************************************************/
 //Adding a link in the WordPress tagline
 /********************************************************/
-add_filter( 'tc_tagline_display' , 'grc_link_in_tagline');
-function grc_link_in_tagline() {
+add_filter( 'tc_tagline_display' , 'ssws_link_in_tagline');
+function ssws_link_in_tagline() {
     global $wp_current_filter;
     ?>
         <?php if ( !in_array( '__navbar' , $wp_current_filter ) )  :?>
@@ -535,10 +535,10 @@ function grc_link_in_tagline() {
 /********************************************************/
 /* Custom Login Page
 /********************************************************/
-function grc_custom_login() {
+function ssws_custom_login() {
   echo '<link rel="stylesheet" type="text/css" href="' . get_bloginfo('stylesheet_directory') . '/login/custom-login-styles.css" />';
 }
-add_action('login_head', 'grc_custom_login');
+add_action('login_head', 'ssws_custom_login');
 // https://premium.wpmudev.org/blog/customize-login-page/
 
 
@@ -556,15 +556,15 @@ add_action('login_head', 'custom_login_logo');
 
 //Changing the default WordPress login URL
 
-function grc_login_logo_url() {
+function ssws_login_logo_url() {
     return get_bloginfo( 'url' );
 }
-add_filter( 'login_headerurl', 'grc_login_logo_url' );
+add_filter( 'login_headerurl', 'ssws_login_logo_url' );
 
-function grc_login_logo_url_title() {
+function ssws_login_logo_url_title() {
     return 'Your Site Name and Info';
 }
-add_filter( 'login_headertitle', 'grc_login_logo_url_title' );
+add_filter( 'login_headertitle', 'ssws_login_logo_url_title' );
 //Here, the get_bloginfo(‘url’) is the URL of your blog, you can change that with whatever URL you may like, but don’t forget to add it between quotes.
 
 
@@ -572,7 +572,7 @@ add_filter( 'login_headertitle', 'grc_login_logo_url_title' );
 /********************************************************/
 // Change Login Logo ver. 2.0
 /********************************************************/
-function grc_login_logo() { ?>
+function ssws_login_logo() { ?>
     <style type="text/css">
         #login h1 a, .login h1 a {
             background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/images/logo.png);
@@ -583,18 +583,18 @@ function grc_login_logo() { ?>
         }
     </style>
 <?php }
-add_action( 'login_enqueue_scripts', 'grc_login_logo' );
+add_action( 'login_enqueue_scripts', 'ssws_login_logo' );
 
 // Change the Login Logo URL
-function grc_login_logo_url() {
+function ssws_login_logo_url() {
   return get_bloginfo( 'url' );
 }
-add_filter( 'login_headerurl', 'grc_login_logo_url' );
+add_filter( 'login_headerurl', 'ssws_login_logo_url' );
 
-function grc_login_logo_url_title() {
+function ssws_login_logo_url_title() {
   return 'SSWS - Home';
 }
-add_filter( 'login_headertitle', 'grc_login_logo_url_title' );
+add_filter( 'login_headertitle', 'ssws_login_logo_url_title' );
 
 // Change the Redirect URL
 function admin_login_redirect( $redirect_to, $request, $user ) {
@@ -652,29 +652,29 @@ add_filter( 'pre_get_posts', 'namespace_add_custom_types' );
 /********************************************************/
 function widget_first_last_classes($params) {
 
-  global $grc_widget_num; // Global a counter array
+  global $ssws_widget_num; // Global a counter array
   $this_id = $params[0]['id']; // Get the id for the current sidebar we're processing
   $arr_registered_widgets = wp_get_sidebars_widgets(); // Get an array of ALL registered widgets  
 
-  if(!$grc_widget_num) {// If the counter array doesn't exist, create it
-    $grc_widget_num = array();
+  if(!$ssws_widget_num) {// If the counter array doesn't exist, create it
+    $ssws_widget_num = array();
   }
 
   if(!isset($arr_registered_widgets[$this_id]) || !is_array($arr_registered_widgets[$this_id])) { // Check if the current sidebar has no widgets
     return $params; // No widgets in this sidebar... bail early.
   }
 
-  if(isset($grc_widget_num[$this_id])) { // See if the counter array has an entry for this sidebar
-    $grc_widget_num[$this_id] ++;
+  if(isset($ssws_widget_num[$this_id])) { // See if the counter array has an entry for this sidebar
+    $ssws_widget_num[$this_id] ++;
   } else { // If not, create it starting with 1
-    $grc_widget_num[$this_id] = 1;
+    $ssws_widget_num[$this_id] = 1;
   }
 
-  $class = 'class="widget-' . $grc_widget_num[$this_id] . ' '; // Add a widget number class for additional styling options
+  $class = 'class="widget-' . $ssws_widget_num[$this_id] . ' '; // Add a widget number class for additional styling options
 
-  if($grc_widget_num[$this_id] == 1) { // If this is the first widget
+  if($ssws_widget_num[$this_id] == 1) { // If this is the first widget
     $class .= 'widget-first ';
-  } elseif($grc_widget_num[$this_id] == count($arr_registered_widgets[$this_id])) { // If this is the last widget
+  } elseif($ssws_widget_num[$this_id] == count($arr_registered_widgets[$this_id])) { // If this is the last widget
     $class .= 'widget-last ';
   }
 
@@ -828,8 +828,8 @@ $tb_position = "after"; /* "before" article-content or "after" article-content *
 /********************************************************/
 //Changing the default prefix : “Category Archives :”
 /********************************************************/
-add_filter('tc_category_archive_title' , 'grc_cat_title');
-function grc_cat_title($title) {
+add_filter('tc_category_archive_title' , 'ssws_cat_title');
+function ssws_cat_title($title) {
 return '';
 }
 //http://themesandco.com/snippet/changing-the-title-of-the-categories-archive-pages/
@@ -858,8 +858,8 @@ add_filter('pre_get_posts', 'exclude_category');
 /********************************************************/
 //Inheriting parent styles in WordPress child themes
 /********************************************************/
-add_action( 'wp_enqueue_scripts', 'grc_theme_enqueue_styles' );
-function grc_theme_enqueue_styles() {
+add_action( 'wp_enqueue_scripts', 'ssws_theme_enqueue_styles' );
+function ssws_theme_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 }
 // https://codex.wordpress.org/Child_Themes
@@ -895,7 +895,7 @@ add_filter('upload_mimes', 'cc_mime_types');
 
 add_action('wp_footer' , 'set_fp_item_order');
 function set_fp_item_order() {
-    $grc_item_order = array(
+    $ssws_item_order = array(
         'title', 
         'image', 
         'text',
@@ -907,7 +907,7 @@ function set_fp_item_order() {
             ! function ($) {
                 //prevents js conflicts
                 "use strict";
-                var grc_item_order   = [<?php echo '"'.implode('","', $grc_item_order).'"' ?>],
+                var ssws_item_order   = [<?php echo '"'.implode('","', $ssws_item_order).'"' ?>],
                   $Wrapper    = '';
 
                 if ( 0 != $('.widget-front' , '#main-wrapper .marketing' ).length ) {
@@ -925,8 +925,8 @@ function set_fp_item_order() {
                     o['image']   = $(this).find('.thumb-wrapper');
                     o['text']    = $(this).find('p');
                     o['button']  = $(this).find('a.btn');
-                    for (var i = 0; i < grc_item_order.length - 1; i++) {
-                       o[grc_item_order[i]].after(o[grc_item_order[i+1]]);
+                    for (var i = 0; i < ssws_item_order.length - 1; i++) {
+                       o[ssws_item_order[i]].after(o[ssws_item_order[i+1]]);
                     };
                 });
             }(window.jQuery)
@@ -953,7 +953,7 @@ $func = function ($a) {
 add_filter('pre_site_transient_update_themes', $func);
 //http://stackoverflow.com/questions/11821419/wordpress-plugin-notifications/14935077#14935077
 
-//this is the custom grc version
+//this is the custom ssws version
 //on some versions of customizr the above did not work
 
 function disable_wp_updates($a) {
@@ -972,11 +972,11 @@ add_filter('pre_site_transient_update_themes', 'disable_wp_updates');
 
 
 /********************************************************/
-//Customizing the post layout (content, thumbnail) in post lists [GRC version]
+//Customizing the post layout (content, thumbnail) in post lists [SSWS version]
 /********************************************************/
 
-add_filter('tc_post_list_layout' , 'grc_post_list_layout_options');
-function grc_post_list_layout_options($layout) {
+add_filter('tc_post_list_layout' , 'ssws_post_list_layout_options');
+function ssws_post_list_layout_options($layout) {
 
   //For custom post types
   if ( 'publications' == get_post_type() ) {
@@ -1023,7 +1023,7 @@ function grc_post_list_layout_options($layout) {
 // this function can be parsed from functions.php and intercept the main loop
 
 // [example 1] --> for posts
-function grc_pre_get_posts( $query ) {
+function ssws_pre_get_posts( $query ) {
     // Check if the main query and home and not admin
     if ( $query->is_main_query() && is_home() && !is_admin() ) {
     // Display only posts that belong to a certain Category
@@ -1035,10 +1035,10 @@ function grc_pre_get_posts( $query ) {
   }
 }
 // Add our function to the pre_get_posts hook
-add_action( 'pre_get_posts', 'grc_pre_get_posts' );
+add_action( 'pre_get_posts', 'ssws_pre_get_posts' );
 
 // [example 2] --> for CPT
-function grc_pre_get_posts( $query ) {
+function ssws_pre_get_posts( $query ) {
   // Check if the main query and movie CPT archive and not admin
   if($query->is_main_query() && is_post_type_archive('movie') && !is_admin()){
     // Display only posts from a certain taxonomies
@@ -1052,7 +1052,7 @@ function grc_pre_get_posts( $query ) {
   }
 }
 // Add our function to the pre_get_posts hook
-add_action( 'pre_get_posts', 'grc_pre_get_posts' );
+add_action( 'pre_get_posts', 'ssws_pre_get_posts' );
 // http://www.slideshare.net/anthonyhortin/wordpress-queries-the-right-way
 
 
@@ -1191,10 +1191,10 @@ add_action( 'template_redirect' , function() {
 //Show Featured Image in the Post page
 /********************************************************/
 
-add_filter( 'tc_content_headings_separator', 'grc_thumbnail_post_image' ); //output the thumbnail after the title and the entry-meta
-//add_filter( '__after_content', 'grc_thumbnail_post_image' );  //output the thumbnail after the content and before the comments
-//add_filter( '__before_content', 'grc_thumbnail_post_image' ); //output the thumbnail before the title and after the breadcrumb
-function grc_thumbnail_post_image() {
+add_filter( 'tc_content_headings_separator', 'ssws_thumbnail_post_image' ); //output the thumbnail after the title and the entry-meta
+//add_filter( '__after_content', 'ssws_thumbnail_post_image' );  //output the thumbnail after the content and before the comments
+//add_filter( '__before_content', 'ssws_thumbnail_post_image' ); //output the thumbnail before the title and after the breadcrumb
+function ssws_thumbnail_post_image() {
   if ( is_single() && has_post_thumbnail() ) { //check if we are in the single post page && if the post has a featured image assigned to it.
 
       //echo '<hr class="featurette-divider">';
@@ -1215,8 +1215,8 @@ function grc_thumbnail_post_image() {
 // https://wordpress.org/support/topic/display-post-featured-image-below-title
 
 // Add the thumbnail before the content title
-add_action( '__before_content_title' , 'grc_extra_thumbnail_on_posts_and_pages', 5);
-function grc_extra_thumbnail_on_posts_and_pages() {
+add_action( '__before_content_title' , 'ssws_extra_thumbnail_on_posts_and_pages', 5);
+function ssws_extra_thumbnail_on_posts_and_pages() {
   if ( is_single()  && has_post_thumbnail() ) {
 
     ob_start();
@@ -1236,8 +1236,8 @@ function grc_extra_thumbnail_on_posts_and_pages() {
 }
 
 // Add row-fluid class to the page header, in order to add bootstrap span classes to thumbnail and heading/meta
-add_filter( 'tc_content_header_class', 'grc_content_header_class' );
-function grc_content_header_class($content_header_class) {
+add_filter( 'tc_content_header_class', 'ssws_content_header_class' );
+function ssws_content_header_class($content_header_class) {
   if ( is_single()  && has_post_thumbnail() ) {
 
     $content_header_class = $content_header_class . ' row-fluid';
@@ -1248,8 +1248,8 @@ function grc_content_header_class($content_header_class) {
 
 }
 // Add a bootstrap span class to the page title when on a single blog entry or a page -- bit of a hack, as it latches on to the code to add the format-icon class
-add_filter( 'tc_content_title_icon', 'grc_content_title_icon' );
-function grc_content_title_icon($icon_class) {
+add_filter( 'tc_content_title_icon', 'ssws_content_title_icon' );
+function ssws_content_title_icon($icon_class) {
   if ( is_single()  && has_post_thumbnail() ) {
 
     $icon_class = $icon_class . ' span9';
@@ -1261,8 +1261,8 @@ function grc_content_title_icon($icon_class) {
 }
 
 // add a bootstrap span class to post metas when on a single blog entry or a page
-add_filter( 'tc_post_metas', 'grc_post_metas' );
-function grc_post_metas($html) {
+add_filter( 'tc_post_metas', 'ssws_post_metas' );
+function ssws_post_metas($html) {
   if ( is_single()  && has_post_thumbnail() ) {
 
     $html = str_replace('<div class="entry-meta">', '<div class="entry-meta span9">', $html);
@@ -1275,7 +1275,7 @@ function grc_post_metas($html) {
 // ============================================================ //
 // End of post/page thumbnail code                              //
 // ============================================================ //
-// grc note:
+// ssws note:
 // the original snippet from Rocco used is_singular() I changed to is_single() to affect only posts
 // is_single() returns true if any single post is being displayed 
 // is_singular() returns true when any page, attachment, or single post is being displayed.
@@ -1292,8 +1292,8 @@ function grc_post_metas($html) {
 
 // for fp thumbnails:
 
-add_filter( 'fpc_size', 'grc_thumb_size');
-function grc_thumb_size() {
+add_filter( 'fpc_size', 'ssws_thumb_size');
+function ssws_thumb_size() {
     $sizeinfo = array( 'width' => 370 , 'height' => 200, 'crop' => false );
     return $sizeinfo;
 }
@@ -1323,14 +1323,14 @@ function grc_thumb_size() {
 
 // for sliders:
 
-add_filter( 'tc_slider_size', 'grc_boxed_slider_size'); // boxed slider
-function grc_boxed_slider_size() {
+add_filter( 'tc_slider_size', 'ssws_boxed_slider_size'); // boxed slider
+function ssws_boxed_slider_size() {
     $sizeinfo = array( 'width' => 1170 , 'height' => 800, 'crop' => true );
     return $sizeinfo;
 }
 
-add_filter( 'tc_slider_full_size', 'grc_fullWidth_slider_size'); // full-width slider
-function grc_fullWidth_slider_size() {
+add_filter( 'tc_slider_full_size', 'ssws_fullWidth_slider_size'); // full-width slider
+function ssws_fullWidth_slider_size() {
     $sizeinfo = array( 'width' => 99999 , 'height' => 800, 'crop' => true );
     return $sizeinfo;
 }
@@ -1342,13 +1342,13 @@ function grc_fullWidth_slider_size() {
 /********************************************************/
 // Adding shortcode to a slider text [Customizr]
 /********************************************************/
-add_filter('tc_slide_text_length', 'grc_tc_slide_text_length');
-function grc_tc_slide_text_length(){
+add_filter('tc_slide_text_length', 'ssws_tc_slide_text_length');
+function ssws_tc_slide_text_length(){
     return 500; /*change this value to suit your needs*/
 }
 
-add_filter('tc_slider_display', 'do_grc_shortcode');
-function do_grc_shortcode($html){
+add_filter('tc_slider_display', 'do_ssws_shortcode');
+function do_ssws_shortcode($html){
     return do_shortcode(html_entity_decode($html));
 }
 
@@ -1357,9 +1357,9 @@ function do_html($attr, $content){
     return str_replace(array('{','}'), array('<','>'), $content);
 }
 // Then in the slide's description box put something like this:
-// [htmlify]{/p}{ul class="grc_class"}{li}first{/li}{li}second{/li}{/ul}{p}[/htmlify]
-// or [htmlify]{/p}{p class="grc_class lead"}SOMETHING BEFORE{span class="red-link"} >[/htmlify]
-// or [htmlify]{/p}{h1 class="grc_class lead"}This text for more information{span class="red-link"} >{/span}{/h1}[/htmlify]
+// [htmlify]{/p}{ul class="ssws_class"}{li}first{/li}{li}second{/li}{/ul}{p}[/htmlify]
+// or [htmlify]{/p}{p class="ssws_class lead"}SOMETHING BEFORE{span class="red-link"} >[/htmlify]
+// or [htmlify]{/p}{h1 class="ssws_class lead"}This text for more information{span class="red-link"} >{/span}{/h1}[/htmlify]
 
 // https://wordpress.org/support/topic/adding-shortcode-to-a-sliders-text
 
@@ -1379,8 +1379,8 @@ function navigate_in_same_taxonomy( $args ){
 /****************************************************************/ 
 /* Change Breadcrumb trail 'Home' to 'Custom Word' or Font Awesome icon
 /****************************************************************/
-add_filter( 'tc_breadcrumb_trail_args', 'grc_breadcrumb_home_word' );
-function grc_breadcrumb_home_word($args) {
+add_filter( 'tc_breadcrumb_trail_args', 'ssws_breadcrumb_home_word' );
+function ssws_breadcrumb_home_word($args) {
     $new_args = array(
              'container'  => 'div' ,        // div, nav, p, etc. [without this parameter it won't work]
              'separator'  => '→' ,          // default is » choose any special character you want: |, >, ⇒, ->, ~, etc. 
@@ -1446,9 +1446,9 @@ add_action( 'wp_footer', 'insert_koine_info', 100);
 /************************************/
 
 // Add to your child-theme functions.php
-add_filter('get_search_form', 'grc_search_form_text');
+add_filter('get_search_form', 'ssws_search_form_text');
  
-function grc_search_form_text($text) {
+function ssws_search_form_text($text) {
      $text = str_replace('value="Search"', 'value="Click me"', $text); //set as value the text you want
      return $text;
 }
@@ -1601,7 +1601,7 @@ function add_current_nav_class($classes, $item) {
   // If the menu item URL contains the current post types slug add the current-menu-item class
   if (strpos($menu_slug,$current_post_type_slug) !== false) {
   
-     $classes[] = 'current-menu-item grc-test';
+     $classes[] = 'current-menu-item ssws-test';
   
   }
   
@@ -1645,11 +1645,11 @@ function new_wp_trim_excerpt($text) {
   $raw_excerpt = $text;
   if ( '' == $text ) {
 
-// GRC
+// SSWS
 //  this change the lenght from words to characters 
 
     $text = get_the_content('');            // original snippet
-    //$text = substr( get_the_content('') , 0, 775);  //grc snippet from Scott code
+    //$text = substr( get_the_content('') , 0, 775);  //ssws snippet from Scott code
 
     $text = strip_shortcodes( $text );
 
@@ -1831,22 +1831,22 @@ function custom_remove_error_message() {
 /********************************************************/
 // Remove the “ver” parameter from all enqueued CSS and JS files
 /********************************************************/
-function grc_remove_wp_ver_css_js( $src ) {
+function ssws_remove_wp_ver_css_js( $src ) {
     if ( strpos( $src, 'ver=' ) )
         $src = remove_query_arg( 'ver', $src );
     return $src;
 }
-add_filter( 'style_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
-add_filter( 'script_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
+add_filter( 'style_loader_src', 'ssws_remove_wp_ver_css_js', 9999 );
+add_filter( 'script_loader_src', 'ssws_remove_wp_ver_css_js', 9999 );
 // https://www.virendrachandak.com/techtalk/how-to-remove-wordpress-version-parameter-from-js-and-css-files/
 
 
 /****************************************************************/
 // Style widgets in WP dashboard
 /****************************************************************/
-add_action('admin_head', 'grc_wp_dashboard_custom_styles');
+add_action('admin_head', 'ssws_wp_dashboard_custom_styles');
 
-function grc_wp_dashboard_custom_styles() {
+function ssws_wp_dashboard_custom_styles() {
   echo '<style>
     .widgets-php .rpwe-columns-3:first-child,
     #widget-rpwe_widget-2-css {
@@ -1859,15 +1859,15 @@ function grc_wp_dashboard_custom_styles() {
 /********************************************************/
 // Remove the “ver” parameter from all enqueued CSS and JS files
 /********************************************************/
-function grc_remove_wp_ver_css_js( $src ) {
+function ssws_remove_wp_ver_css_js( $src ) {
     if ( strpos( $src, 'ver=' ) )
         $src = remove_query_arg( 'ver', $src );
     return $src;
 }
-add_filter( 'style_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
-add_filter( 'script_loader_src', 'grc_remove_wp_ver_css_js', 9999 );
+add_filter( 'style_loader_src', 'ssws_remove_wp_ver_css_js', 9999 );
+add_filter( 'script_loader_src', 'ssws_remove_wp_ver_css_js', 9999 );
 /* https://www.virendrachandak.com/techtalk/how-to-remove-wordpress-version-parameter-from-js-and-css-files/ */
-// GRC: though the versioning is quite important for caching
+// SSWS: though the versioning is quite important for caching
 
 
 /********************************************************/
@@ -1884,3 +1884,5 @@ function ssws_custom_rest()
 }
 
 add_action('rest_api_init', 'ssws_custom_rest');
+// requires this line in the CPT registration code
+// 'show_in_rest' => true,
