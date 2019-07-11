@@ -1886,3 +1886,20 @@ function ssws_custom_rest()
 add_action('rest_api_init', 'ssws_custom_rest');
 // requires this line in the CPT registration code
 // 'show_in_rest' => true,
+
+
+/********************************************************/
+// Enqueue GMAPS API Key and store into variable
+/********************************************************/
+function ssws_enqueue_files()
+{
+    wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=YOUR-GMAPS-API-KEY', null, '1.0', true);
+}
+add_action('wp_enqueue_scripts', 'ssws_files');
+
+function sswsMapKey($api)
+{
+    $api['key'] = 'YOUR-GMAPS-API-KEY';
+    return $api;
+}
+add_filter('acf/fields/google_map/api', 'sswsMapKey');
