@@ -1908,7 +1908,7 @@ function ssws_enqueue_files()
 {
     wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=YOUR-GMAPS-API-KEY', null, '1.0', true);
 }
-add_action('wp_enqueue_scripts', 'ssws_files');
+add_action('wp_enqueue_scripts', 'ssws_enqueue_files');
 
 function sswsMapKey($api)
 {
@@ -1916,6 +1916,7 @@ function sswsMapKey($api)
     return $api;
 }
 add_filter('acf/fields/google_map/api', 'sswsMapKey');
+// https://www.advancedcustomfields.com/resources/google-map/
 // this needs to be implemented with a custom input field via customizr to keep the key separated from the theme
 
 
