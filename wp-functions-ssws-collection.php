@@ -624,6 +624,31 @@ function rememberme_checked() {
 }
 // https://premium.wpmudev.org/blog/customize-login-page/
 
+/********************************************************/
+// Customize Login Screen ver. 3.0
+/********************************************************/
+add_filter('login_headerurl', 'SSWSHeaderUrl');
+
+function SSWSHeaderUrl()
+{
+    return esc_url(site_url('/'));
+}
+
+add_action('login_enqueue_scripts', 'SSWSLoginCSS');
+
+function SSWSLoginTitle()
+{
+    return get_bloginfo('name');
+}
+
+function SSWSLoginCSS()
+{
+    wp_enqueue_style('ssws_main_styles', get_stylesheet_uri());
+    wp_enqueue_style('custom-google-fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
+}
+
+add_filter('login_headertitle', 'SSWSLoginTitle');
+
 
 /********************************************************/
 //Make Archives.php Include Custom Post Types
