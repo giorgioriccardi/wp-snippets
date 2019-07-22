@@ -36,6 +36,7 @@ function add_googleanalytics() {
      }
   }
 }
+// this needs to be implemented with a custom input field via customizr to keep the key separated from the theme
 
 
 /********************************************************/
@@ -1853,19 +1854,6 @@ function custom_remove_error_message() {
 /* https://wordpress.org/support/topic/error-failed-to-load-content-css/page/2/#post-9371633 */
 
 
-/********************************************************/
-// Remove the “ver” parameter from all enqueued CSS and JS files
-/********************************************************/
-function ssws_remove_wp_ver_css_js( $src ) {
-    if ( strpos( $src, 'ver=' ) )
-        $src = remove_query_arg( 'ver', $src );
-    return $src;
-}
-add_filter( 'style_loader_src', 'ssws_remove_wp_ver_css_js', 9999 );
-add_filter( 'script_loader_src', 'ssws_remove_wp_ver_css_js', 9999 );
-// https://www.virendrachandak.com/techtalk/how-to-remove-wordpress-version-parameter-from-js-and-css-files/
-
-
 /****************************************************************/
 // Style widgets in WP dashboard
 /****************************************************************/
@@ -1928,3 +1916,4 @@ function sswsMapKey($api)
     return $api;
 }
 add_filter('acf/fields/google_map/api', 'sswsMapKey');
+// this needs to be implemented with a custom input field via customizr to keep the key separated from the theme
