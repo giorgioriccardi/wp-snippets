@@ -7,7 +7,7 @@
 /********************************************************/
 add_action( 'wp_enqueue_scripts', 'ssws_google_font' );
 function ssws_google_font() {
-	wp_enqueue_style( $handle = 'my-google-font', $src = 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic', $deps = array(), $ver = null, $media = null );
+	wp_enqueue_style( $handle = 'ssws-google-font', $src = 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic', $deps = array(), $ver = null, $media = null );
 }
 //<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 
@@ -15,8 +15,8 @@ function ssws_google_font() {
 /********************************************************/
 // Install Google Analytics in WordPress
 /********************************************************/
-add_action('wp_footer', 'add_googleanalytics');
-function add_googleanalytics() {
+add_action('wp_footer', 'ssws_Add_GoogleAnalytics');
+function ssws_Add_GoogleAnalytics() {
   // wrap the GA code in an if condition to match only live site url
   // if ($_SERVER['HTTP_HOST']==="staging.your-site.com" || $_SERVER['HTTP_HOST']==="www.staging.your-site.com") { // local
   if ($_SERVER['HTTP_HOST']==="your-site.com" || $_SERVER['HTTP_HOST']==="www.your-site.com") { // production
@@ -42,29 +42,29 @@ function add_googleanalytics() {
 /********************************************************/
   // Replaces the excerpt "more" text or [...] with a custom link
 /********************************************************/
-    function new_excerpt_more($more) {
+    function ssws_excerpt_more($more) {
            global $post;
       // return '<a class="moretag" href="'. get_permalink($post->ID) . '"&gt; READ MORE</a>';
            return ' [... <a class="moretag" href="'. get_permalink($post->ID) . '">read more &gt;</a>]';
     }
 
-    add_filter('excerpt_more', 'new_excerpt_more');
+    add_filter('excerpt_more', 'ssws_excerpt_more');
     /*end of MORE*/
 
 
 /********************************************************/
 //Change WordPress Excerpt length
 /********************************************************/
-function custom_excerpt_length( $length ) {
+function ssws_custom_excerpt_length( $length ) {
   return 20;
 }
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+add_filter( 'excerpt_length', 'ssws_custom_excerpt_length', 999 );
 
 
 //Two Different Excerpt Length's
 
 // SSWS working:
-function custom_excerpt($new_length = 20) {
+function ssws_custom_excerpt($new_length = 20) {
   
   add_filter('excerpt_length', function () use ($new_length) {
     return $new_length;
@@ -79,9 +79,9 @@ function custom_excerpt($new_length = 20) {
 }
 
 // requires this snippet in the page template:
-//<?php custom_excerpt(55, '<a class="moretag" href="' . get_permalink( get_the_ID() ) . '"&gt; READ MORE</a>') ? >
+//<?php ssws_custom_excerpt(55, '<a class="moretag" href="' . get_permalink( get_the_ID() ) . '"&gt; READ MORE</a>') ? >
 //ssws 02/2015:
-//<?php custom_excerpt(55) ? > // works as well
+//<?php ssws_custom_excerpt(55) ? > // works as well
 //started from http://wordpress.org/support/topic/two-different-excerpt-lengths
 //implemented by Scott and SSWS
 
@@ -90,17 +90,17 @@ function custom_excerpt($new_length = 20) {
   // Add menus to Customizr
 /********************************************************/
 
-  add_action( 'init', 'register_secondary_menu' ); // this registers your menu with WP
-  function register_secondary_menu() {
+  add_action( 'init', 'ssws_register_secondary_menu' ); // this registers your menu with WP
+  function ssws_register_secondary_menu() {
       if ( function_exists( 'register_nav_menu' ) ) {
           register_nav_menu( 'secondary-menu', 'Secondary Menu' );
       }
   }
   // Select the add_action you need, depending on where you want to add the menu and disable the rest:
-  add_action('__before_header', 'display_secondary_menu');     // use this line to add above header
-  //add_action('__header', 'display_secondary_menu', 1000, 0);     // use this to add after header
-  //add_action('__before_footer', 'display_secondary_menu');     // use this line to add above footer
-  //add_action('wp_footer', 'display_secondary_menu', 1000, 0);     // use this to add before credits
+  add_action('__before_header', 'ssws_display_secondary_menu');     // use this line to add above header
+  //add_action('__header', 'ssws_display_secondary_menu', 1000, 0);     // use this to add after header
+  //add_action('__before_footer', 'ssws_display_secondary_menu');     // use this line to add above footer
+  //add_action('wp_footer', 'ssws_display_secondary_menu', 1000, 0);     // use this to add before credits
 
 //http://themesandco.com/snippet/adding-extra-menus-customizr/
   
@@ -108,7 +108,7 @@ function custom_excerpt($new_length = 20) {
   the secondary menu it is displayed manually in the footer hooks file*/
   
   // display function for your menu:
-  function display_secondary_menu() {
+  function ssws_display_secondary_menu() {
       echo ( has_nav_menu( 'secondary-menu' ) ? wp_nav_menu (
           array (
               'theme_location' => 'secondary-menu',
@@ -207,7 +207,7 @@ add_filter( 'widget_archives_args', 'ssws_limit_archives' );
 /********************************************************/
 //  Excludes certain categories
 /********************************************************/
-function widget_categories_args_filter( $cat_args ) {
+function ssws_exclude_widget_categories_args_filter( $cat_args ) {
     $exclude_arr = array( 843, 838 ); //here the id of the categories to exclude
     
     if( isset( $cat_args['exclude'] ) && !empty( $cat_args['exclude'] ) )
@@ -216,13 +216,13 @@ function widget_categories_args_filter( $cat_args ) {
     return $cat_args;
 }
 
-add_filter( 'widget_categories_args', 'widget_categories_args_filter', 10, 1 );
+add_filter( 'widget_categories_args', 'ssws_exclude_widget_categories_args_filter', 10, 1 );
 
 
 /********************************************************/
 //  Includes certain categories
 /********************************************************/
-function widget_categories_args_filter( $cat_args ) {
+function ssws_widget_includes_categories_args_filter( $cat_args ) {
     $include_arr = array( 843, 838 ); //here the id of the categories to include
     
     if( isset( $cat_args['include'] ) && !empty( $cat_args['include'] ) )
@@ -231,7 +231,7 @@ function widget_categories_args_filter( $cat_args ) {
     return $cat_args;
 }
 
-add_filter( 'widget_categories_args', 'widget_categories_args_filter', 10, 1 );
+add_filter( 'widget_categories_args', 'ssws_widget_includes_categories_args_filter', 10, 1 );
 //https://codex.wordpress.org/Plugin_API/Filter_Reference/widget_categories_args
 
 
@@ -273,7 +273,7 @@ function ssws_footer_widget_class() {
 /********************************************************/
 //Add Search Form in your Post with a WordPress Search Shortcode
 /********************************************************/
-function wpbsearchform( $form ) {
+function ssws_search_form( $form ) {
 
     $form = '<form role="search" method="get" id="searchform" action="' . home_url( '/' ) . '" >
     <div><label class="screen-reader-text" for="s">' . __('Search for:') . '</label>
@@ -284,12 +284,12 @@ function wpbsearchform( $form ) {
 
     return $form;
 }
-add_shortcode('wpbsearch', 'wpbsearchform');
+add_shortcode('ssws-search', 'ssws_search_form');
 
 //http://www.wpbeginner.com/wp-tutorials/how-to-add-search-form-in-your-post-with-a-wordpress-search-shortcode/
 
 // requires a shortcode in the header file
-/*<?php echo do_shortcode('[wpbsearch]'); ?>*/
+/*<?php echo do_shortcode('[ssws-search]'); ?>*/
 
     //search form in the header can be easly replaced with this:
 
@@ -300,8 +300,8 @@ add_shortcode('wpbsearch', 'wpbsearchform');
 // As of 3.1.10, Customizr doesn't output an html5 form.
 add_theme_support( 'html5', array( 'search-form' ) );
 
-add_filter('wp_nav_menu_items', 'add_search_form_to_menu', 10, 2);
-function add_search_form_to_menu($items, $args) {
+add_filter('wp_nav_menu_items', 'ssws_add_search_form_to_menu', 10, 2);
+function ssws_add_search_form_to_menu($items, $args) {
 
   // If this isn't the main navbar menu, do nothing
   if( !($args->theme_location == 'main') ) // or set to 'secondary' if the option in Customizr is enabled
@@ -319,8 +319,8 @@ function add_search_form_to_menu($items, $args) {
 /********************************************************/
 // Remove 3-bars from menu button
 /********************************************************/
-add_filter('tc_menu_display', 'rdc_menu_display');
-function rdc_menu_display($output) {
+add_filter('tc_menu_display', 'ssws_menu_display');
+function ssws_menu_display($output) {
     return preg_replace('|<span class="icon-bar"></span>|', null, $output);
 }
 // requires css content: "Menu";
@@ -331,7 +331,7 @@ function rdc_menu_display($output) {
 // <!-- http://wordpress.stackexchange.com/questions/16070/how-to-highlight-search-terms-without-plugin -->
 // <!-- HIGHLIGHT THE SEARCH TERMS IN RESULTS -->
 /********************************************************/
-function search_excerpt_highlight() {
+function ssws_search_excerpt_highlight() {
     $excerpt = get_the_excerpt();
     $keys = implode('|', explode(' ', get_search_query()));
     $excerpt = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $excerpt);
@@ -364,7 +364,7 @@ function search_content_highlight() {
       //<?php //the_excerpt(); ? >
 
       //<!-- this shows only the excerpt -->
-      //<?php search_excerpt_highlight(); ? >
+      //<?php ssws_search_excerpt_highlight(); ? >
 
       //<!-- this shows highlighted results in all the content -->
       //<?php search_content_highlight(); ? >
@@ -375,16 +375,16 @@ function search_content_highlight() {
 //different version of the higlighted search function, it does not requires snippets:
 
 //http://bradsknutson.com/blog/highlight-search-terms-wordpress/
-function highlight_search_term($text){
+function ssws_highlight_search_term($text){
     if(is_search()){
     $keys = implode('|', explode(' ', get_search_query()));
     $text = preg_replace('/(' . $keys .')/iu', '<span class="search-term">\0</span>', $text);
   }
     return $text;
 }
-add_filter('the_excerpt', 'highlight_search_term');
-add_filter('the_title', 'highlight_search_term');
-add_filter('the_content', 'highlight_search_term');
+add_filter('the_excerpt', 'ssws_highlight_search_term');
+add_filter('the_title', 'ssws_highlight_search_term');
+add_filter('the_content', 'ssws_highlight_search_term');
 
 //<!-- end of HIGHLIGHT THE SEARCH TERMS IN RESULTS -->
 
@@ -908,11 +908,11 @@ add_action( 'wp_enqueue_scripts', 'get_parent_theme_css' );
 /********************************************************/
 //Allow SVG through WordPress Media Uploader
 /********************************************************/
-function cc_mime_types($mimes) {
+function ssws_mime_types($mimes) {
   $mimes['svg'] = 'image/svg+xml';
   return $mimes;
 }
-add_filter('upload_mimes', 'cc_mime_types');
+add_filter('upload_mimes', 'ssws_mime_types');
 
 
 /********************************************************/
@@ -1085,14 +1085,14 @@ add_action( 'pre_get_posts', 'ssws_pre_get_posts' );
 /********************************************************/
 // Add Font Awesome CDN
 /********************************************************/
-add_action( 'wp_enqueue_scripts', 'prefix_enqueue_awesome' );
+add_action( 'wp_enqueue_scripts', 'ssws_prefix_enqueue_awesome' );
 /**
 * Register and load font awesome CSS files using a CDN.
 *
 * @link http://www.bootstrapcdn.com/#fontawesome
 * @author FAT Media
 */
-function prefix_enqueue_awesome() {
+function ssws_prefix_enqueue_awesome() {
 wp_enqueue_style( 'prefix-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css', array(), '4.0.3' );
 // http://ozzyrodriguez.com/tutorials/font-awesome-wordpress-cdn/
 
@@ -1100,7 +1100,7 @@ wp_enqueue_style( 'prefix-font-awesome', '//netdna.bootstrapcdn.com/font-awesome
 /********************************************************/
 // GPS track files allowed
 /********************************************************/
-function cc_mime_types($mimes) {
+function ssws_mime_types($mimes) {
   $mimes['gpx'] = 'text/gpx+xml';
   $mimes['gdb'] = 'text/gdb+xml';
   $mimes['kml'] = 'text/kml+xml';
@@ -1122,7 +1122,7 @@ function cc_mime_types($mimes) {
 
   return $mimes;
 }
-add_filter('upload_mimes', 'cc_mime_types');
+add_filter('upload_mimes', 'ssws_mime_types');
 // http://blog.chrismeller.com/modifying-allowed-upload-types-in-wordpress
 
 
@@ -1841,9 +1841,9 @@ function add_pixelcode() { ?>
 /********************************************************/ 
 /* remove warning in Customizr editor */
 /* ".../customizr-pro/addons/wfc/front/assets/css/dyn-style.php?is_customizing=false" */
-add_action('admin_head', 'custom_remove_error_message');
+add_action('admin_head', 'ssws_custom_remove_error_message');
 
-function custom_remove_error_message() {
+function ssws_custom_remove_error_message() {
   echo '<style>
     .mce-widget.mce-notification.mce-notification-error.mce-has-close {
     display: none;
@@ -1923,35 +1923,35 @@ add_filter('acf/fields/google_map/api', 'sswsMapKey');
 /********************************************************/
 // Automatically set the image Title, Alt-Text, Caption & Description upon upload
 /********************************************************/
-add_action( 'add_attachment', 'my_set_image_meta_upon_image_upload' );
-function my_set_image_meta_upon_image_upload( $post_ID ) {
+add_action( 'add_attachment', 'ssws_set_image_meta_upon_image_upload' );
+function ssws_set_image_meta_upon_image_upload( $post_ID ) {
 
 	// Check if uploaded file is an image, else do nothing
 
 	if ( wp_attachment_is_image( $post_ID ) ) {
 
-		$my_image_title = get_post( $post_ID )->post_title;
+		$ssws_image_title = get_post( $post_ID )->post_title;
 
 		// Sanitize the title:  remove hyphens, underscores & extra spaces:
-		$my_image_title = preg_replace( '%\s*[-_\s]+\s*%', ' ',  $my_image_title );
+		$ssws_image_title = preg_replace( '%\s*[-_\s]+\s*%', ' ',  $ssws_image_title );
 
 		// Sanitize the title:  capitalize first letter of every word (other letters lower case):
-		$my_image_title = ucwords( strtolower( $my_image_title ) );
+		$ssws_image_title = ucwords( strtolower( $ssws_image_title ) );
 
 		// Create an array with the image meta (Title, Caption, Description) to be updated
 		// Note:  comment out the Excerpt/Caption or Content/Description lines if not needed
-		$my_image_meta = array(
+		$ssws_image_meta = array(
 			'ID'		    => $post_ID,			// Specify the image (ID) to be updated
-			'post_title'	=> $my_image_title,		// Set image Title to sanitized title
-			// 'post_excerpt'	=> $my_image_title,		// Set image Caption (Excerpt) to sanitized title
-			// 'post_content'	=> $my_image_title,		// Set image Description (Content) to sanitized title
+			'post_title'	=> $ssws_image_title,		// Set image Title to sanitized title
+			// 'post_excerpt'	=> $ssws_image_title,		// Set image Caption (Excerpt) to sanitized title
+			// 'post_content'	=> $ssws_image_title,		// Set image Description (Content) to sanitized title
 		);
 
 		// Set the image Alt-Text
-		update_post_meta( $post_ID, '_wp_attachment_image_alt', $my_image_title );
+		update_post_meta( $post_ID, '_wp_attachment_image_alt', $ssws_image_title );
 
 		// Set the image meta (e.g. Title, Excerpt, Content)
-		wp_update_post( $my_image_meta );
+		wp_update_post( $ssws_image_meta );
 
 	} 
 }
