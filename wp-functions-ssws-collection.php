@@ -1956,3 +1956,24 @@ function ssws_set_image_meta_upon_image_upload( $post_ID ) {
 	} 
 }
 // http://brutalbusiness.com/automatically-set-the-wordpress-image-title-alt-text-other-meta/
+
+/********************************************************/
+// Set all posts status to published
+/********************************************************/
+add_action('init', 'ssws_update_draft_posts_to_publish');
+function ssws_update_draft_posts_to_publish()
+{
+    $args = array('post_type' => 'post',
+        'post_status' => 'draft',
+        'posts_per_page' => -1,
+    );
+    $published_posts = get_posts($args);
+
+    foreach ($published_posts as $post_to_draft) {
+        $query = array(
+            'ID' => $post_to_draft->ID,
+            'post_status' => 'publish',
+        );
+        wp_update_post($query, true);
+    }
+}
