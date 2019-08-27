@@ -1977,3 +1977,6 @@ function ssws_update_draft_posts_to_publish()
         wp_update_post($query, true);
     }
 }
+// note that this function will not publish custom fields 
+// unless the double click publish button is disabled in the Gutenberg options
+// by default Gutenberg will ask to re-click the publish button to make sure you checked everything twice (rather annoying!)
