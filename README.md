@@ -1,4 +1,13 @@
+# Index
+
+- Add Google Fonts
+- Add Google Analytics script
+- Replaces the excerpt "more" text or [...] with a custom link
+- ...
+- to be continued...
+
 # WordPress Snippets
+
 This document is designed to be a one-stop quick reference of useful WordPress code snippets.
 
 This repository is licensed under the GNU GENERAL PUBLIC LICENSE.
@@ -8,10 +17,13 @@ The focus is to reference the common, though perhaps not-so-obvious hooks and fu
 Reference links will be provided where possible. Much content comes straight from the [WordPress Codex](http://codex.wordpress.org/), as well as [Customizr Hooks & API](http://presscustomizr.com/code-snippets/).
 
 ##### What this is not
+
 This reference guide is not intended to provide in-depth tutorials or walk-throughs, or be an exhaustive development guide. However, it will seek to add explanations and provide commented code where it may be appropriate.
 
 ### How this guide works
+
 Throughout this guide, many functions will be written like:
+
 ```
 function yourtheme_function(){
     // insert magic here
@@ -23,12 +35,12 @@ In this example, `yourtheme_function` is a standard way of naming your functions
 
 Unless otherwise specified, functions are to be placed within your **functions.php** file in your theme.
 
-
-***
-
+---
 
 ## Basic Page Template
+
 This template provides the basic generic building blocks of a WordPress page. Assuming you already have a **header.php** and a **footer.php** file with appropriate code in each.
+
 ```
 <?php
 get_header();
@@ -43,10 +55,10 @@ endwhile;
 get_footer();
 ```
 
-
-
 ## Scripts
+
 To add scripts to your theme. The `array()` parameter will be an array of dependencies, to tell WordPress what needs to be loaded first (e.g. jQuery). Adding the "true" parameter will force the script to be loaded in the footer, rather than in the `<head>`.
+
 ```
 function yourtheme_scripts() {
 
@@ -55,9 +67,10 @@ function yourtheme_scripts() {
 add_action( 'wp_enqueue_scripts', 'your_theme_scripts' );
 ```
 
-
 ## Widgets
+
 To create a place for widgets (for example, to appear in a sidebar). The `register_sidebar()` function will enable your new widget area called 'Sidebar' in the widgets section of the WordPress admin:
+
 ```
 function yourtheme_widgets_init() {
     register_sidebar( array(
@@ -74,6 +87,7 @@ add_action( 'widgets_init', 'yourtheme_widgets_init' );
 ```
 
 In your theme template files, add this code where you wish your widget area to appear, checking if it is active, and calling it by its ID:
+
 ```
 if ( is_active_sidebar( 'sidebar-1' ) ) :
     dynamic_sidebar( 'sidebar-1' );
@@ -82,8 +96,8 @@ endif;
 
 [http://codex.wordpress.org/Function_Reference/register_sidebar](http://codex.wordpress.org/Function_Reference/register_sidebar)
 
-
 ## Custom Login Page
+
 ```
 // replace the WordPress logo
 function my_login_logo() { ?>
@@ -109,10 +123,10 @@ add_filter( 'login_headertitle', 'my_login_logo_url_title' );
 
 ```
 
-
-
 ## WP Query
+
 Reference the WP_Query class to query for any post type, for example. This type of function can be used in your theme templates, or placed within a function inside **functions.php**
+
 ```
 $args = array(
     'post_type'       => 'custom_post_type',
@@ -137,10 +151,10 @@ wp_reset_postdata();
 
 ```
 
-
-
 ## Advanced Custom Fields
+
 If you are using ACF pro, you can enable an options page:
+
 ```
 if( function_exists('acf_add_options_page') ) {
 
@@ -156,15 +170,15 @@ if( function_exists('acf_add_options_page') ) {
 ```
 
 In your template files, retrieve your options page fields:
+
 ```
 $field = get_field('custom_field', 'options');
 ```
 
-
-
 ## Admin Columns
 
 Show the Featured Image in the admin pages:
+
 ```
 // add a new column to your admin pages list of posts
 function add_posts_columns($columns){
@@ -190,8 +204,8 @@ add_action('manage_work_custom_column', 'show_featured_image', 5, 2);
 
 [https://codex.wordpress.org/Plugin_API/Action_Reference/manage_posts_custom_column](https://codex.wordpress.org/Plugin_API/Action_Reference/manage_posts_custom_column)
 
-
 ## Custom Mail Sender
+
 To use an email address different from your site administrator's email address, use this function:
 
 ```
@@ -216,9 +230,11 @@ add_filter( 'pre_get_posts', 'add_attachment_to_search' );
 ```
 
 ## Limit Attachment Search Results
+
 To have search exclude images, but include other document types, you need to add a filter.
 
 [http://wordpress.stackexchange.com/questions/209712/how-do-i-exclude-all-images-from-a-wp-query/209714](http://wordpress.stackexchange.com/questions/209712/how-do-i-exclude-all-images-from-a-wp-query/209714)
+
 ```
 function remove_images($where) {
     global $wpdb;

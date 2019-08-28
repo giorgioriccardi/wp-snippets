@@ -3,7 +3,7 @@
 // SSWS WordPress functions collection 
 
 /********************************************************/
-// Adding a Google Fonts
+// Add Google Fonts
 /********************************************************/
 add_action( 'wp_enqueue_scripts', 'ssws_google_font' );
 function ssws_google_font() {
@@ -13,7 +13,7 @@ function ssws_google_font() {
 
 
 /********************************************************/
-// Install Google Analytics in WordPress
+// Add Google Analytics script
 /********************************************************/
 add_action('wp_footer', 'ssws_Add_GoogleAnalytics');
 function ssws_Add_GoogleAnalytics() {
@@ -40,7 +40,7 @@ function ssws_Add_GoogleAnalytics() {
 
 
 /********************************************************/
-  // Replaces the excerpt "more" text or [...] with a custom link
+// Replaces the excerpt "more" text or [...] with a custom link
 /********************************************************/
     function ssws_excerpt_more($more) {
            global $post;
