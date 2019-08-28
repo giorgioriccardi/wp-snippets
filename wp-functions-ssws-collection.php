@@ -2027,18 +2027,21 @@ add_action('save_post', 'export_posts_in_json');
 // Export API Data to JSON, another method
 /********************************************************/
 // specific for BIM
-add_action('publish_post', function ($ID, $post) {
-  $wp_uri = get_site_url();
-  $bimEndpoint = '/?rest_route=/bim-businesses/v1/posts';
-  $url = $wp_uri . $bimEndpoint; // http://bim-business-search.local/?rest_route=/bim-businesses/v1/posts
-  // $url = 'http://bim-business-search.local/?rest_route=/bim-businesses/v1/posts'; // use this full path variable in case you want to use an absolute path
-  $response = wp_remote_get($url);
-  $responseData = json_encode($response); // saved under the wp root installation
-  file_put_contents('bim_business_data_backup.json', $responseData);
-}, 10, 2);
+add_action('publish_post', 'ssws_export_wp_rest_api_data_to_json', 10, 2);
+function ssws_export_wp_rest_api_data_to_json($ID, $post)
+{
+    $wp_uri = get_site_url();
+    $bimEndpoint = '/?rest_route=/bim-businesses/v1/posts';
+    $url = $wp_uri . $bimEndpoint; // http://bim-business-search.local/?rest_route=/bim-businesses/v1/posts
+    // $url = 'http://bim-business-search.local/?rest_route=/bim-businesses/v1/posts'; // use this full path variable in case you want to use an absolute path
+    $response = wp_remote_get($url);
+    $responseData = json_encode($response); // saved under the wp root installation
+    file_put_contents('bim_business_data_backup.json', $responseData);
+}
 
 // the same but more generic for stackoverflow
-add_action('publish_post', function ($ID, $post) {
+add_action('publish_post', 'export_wp_rest_api_data_to_json', 10, 2);
+function export_wp_rest_api_data_to_json($ID, $post) {
   $wp_uri = get_site_url();
   $customApiEndpoint = '/wp-json/wp/v2/posts'; // or your custom endpoint
   $url = $wp_uri . $customApiEndpoint; // outputs https://your-site.com/wp-json/wp/v2/posts
@@ -2046,7 +2049,7 @@ add_action('publish_post', function ($ID, $post) {
   $response = wp_remote_get($url);
   $responseData = json_encode($response); // saved under the wp root installation, can be customized to any folder
   file_put_contents('your_api_data_backup.json', $responseData);
-}, 10, 2);
+}
 // https://stackoverflow.com/questions/46082213/wordpress-save-api-json-after-publish-a-post
 
 /********************************************************/
