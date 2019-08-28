@@ -2021,3 +2021,28 @@ add_action('save_post', 'export_posts_in_json');
 // https://wordpress.stackexchange.com/questions/232708/export-all-post-from-database-to-json-only-when-the-database-gets-updated
 // my answer here: 
 // https://stackoverflow.com/questions/43787499/wordpress-rest-api-write-to-json-file
+
+/********************************************************/
+// Export Users and Posts in json from the DataBase
+/********************************************************/
+function export_users_to_json()
+{
+    global $wpdb;
+
+    $query = "SELECT * FROM wp_users";
+    $users = $wpdb->get_results($query, ARRAY_A);
+    $json = json_encode($users);
+    file_put_contents('users_export.json', $json);
+}
+add_action('wp_loaded', 'export_users_to_json');
+
+function export_posts_to_json()
+{
+    global $wpdb;
+
+    $query = "SELECT * FROM wp_posts";
+    $posts = $wpdb->get_results($query, ARRAY_A); // gets all the posts, trash, draft, publish...
+    $json = json_encode($posts);
+    file_put_contents('posts_export.json', $json);
+}
+add_action('wp_loaded', 'export_posts_to_json');
