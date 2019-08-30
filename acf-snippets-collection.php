@@ -15,16 +15,16 @@ if (!empty($term)):
     $category_number = $term[0]; // get_field returns an array, [0] is the 1st element (any others are ignored)
     // now use $category_number
     ?>
-		    <h3>
-		        Category name is:
-		        <a href="<?php echo get_category_link($category_number); ?>" title="<?php echo get_cat_name($category_number) ?>" target="_blank">
-		    <!-- or -->
-		        <!-- <a href="<?php //echo get_cat_name( $category_number );  ?>" title="<?php //echo get_cat_name( $category_number ) ?>" target="_blank"> -->
-		          <?php echo get_cat_name($category_number) ?> <!-- output the category name -->
-		        </a>
-		    </h3>
+	        <h3>
+	            Category name is:
+	            <a href="<?php echo get_category_link($category_number); ?>" title="<?php echo get_cat_name($category_number) ?>" target="_blank">
+	        <!-- or -->
+	            <!-- <a href="<?php //echo get_cat_name( $category_number );  ?>" title="<?php //echo get_cat_name( $category_number ) ?>" target="_blank"> -->
+	                <?php echo get_cat_name($category_number) ?> <!-- output the category name -->
+	            </a>
+	        </h3>
 
-		<?php endif;?>
+	<?php endif;?>
 <!-- credits to Scott [https://github.com/sblessley] for the link function call! -->
 
 
@@ -50,7 +50,6 @@ foreach ($related_posts as $related_post):
     </div>
 <?php endforeach;?>
 <?php endif;?>
-
 
 
 <!-- this snippet outputs the ACF file field
@@ -104,3 +103,47 @@ echo '</a></p>';
 
 
 <?php
+
+/********************************************************/
+// Hook acf/save_post applied to all custom fields
+/********************************************************/
+add_action('acf/save_post', 'save_post', 20);
+
+function save_post($post_id)
+{
+    // check if is autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        // verify nonce
+        if (isset($_POST['acf_nonce'], $_POST['fields']) && wp_verify_nonce($_POST['acf_nonce'], 'input')) {
+            // update the post (may even be a revision / autosave preview)
+            do_action('acf/save_post', $post_id);
+        }
+    }
+
+    // Remove the hook to avoid infinite loop. Please make sure that it has
+    // the same priority (20)
+    remove_action('acf/save_post', 'save_post', 20);
+    // Update the post
+    wp_update_post($new_post);
+    // Add the hook back
+    add_action('acf/save_post', 'save_post', 20);
+}
+// https://support.advancedcustomfields.com/forums/topic/hook-acfsave_post-not-applied-for-all/#post-45195
+
+/********************************************************/
+// Hook acf/save_post applied to all custom fields (basic version)
+/********************************************************/
+add_action('save_post', 'my_autosave_acf');
+
+function my_autosave_acf($post_id)
+{
+    // check if is autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        // verify nonce
+        if (isset($_POST['acf_nonce'], $_POST['fields']) && wp_verify_nonce($_POST['acf_nonce'], 'input')) {
+            // update the post (may even be a revision / autosave preview)
+            do_action('acf/save_post', $post_id);
+        }
+    }
+}
+// https://github.com/elliotcondon/acf/issues/585
