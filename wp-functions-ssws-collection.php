@@ -2103,3 +2103,22 @@ function ssws_change_post_object() {
         $labels->menu_name = 'News';
         $labels->name_admin_bar = 'News';
 }
+
+/********************************************************/
+// Change dashboard admin icons
+/********************************************************/
+function replace_admin_menu_icons_css()
+{
+    ?>
+    <style>
+        .dashicons-admin-post::before {
+            content: "";
+            background-image: url('/wp-content/themes/minimal-lite-child/assets/images/menu-icon@2x.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        }
+    </style>
+    <?php
+}
+add_action('admin_head', 'replace_admin_menu_icons_css');
