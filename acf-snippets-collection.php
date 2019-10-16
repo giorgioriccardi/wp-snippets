@@ -15,16 +15,16 @@ if (!empty($term)):
     $category_number = $term[0]; // get_field returns an array, [0] is the 1st element (any others are ignored)
     // now use $category_number
     ?>
-	        <h3>
-	            Category name is:
-	            <a href="<?php echo get_category_link($category_number); ?>" title="<?php echo get_cat_name($category_number) ?>" target="_blank">
-	        <!-- or -->
-	            <!-- <a href="<?php //echo get_cat_name( $category_number );  ?>" title="<?php //echo get_cat_name( $category_number ) ?>" target="_blank"> -->
-	                <?php echo get_cat_name($category_number) ?> <!-- output the category name -->
-	            </a>
-	        </h3>
+					        <h3>
+					            Category name is:
+					            <a href="<?php echo get_category_link($category_number); ?>" title="<?php echo get_cat_name($category_number) ?>" target="_blank">
+					        <!-- or -->
+					            <!-- <a href="<?php //echo get_cat_name( $category_number );  ?>" title="<?php //echo get_cat_name( $category_number ) ?>" target="_blank"> -->
+					                <?php echo get_cat_name($category_number) ?> <!-- output the category name -->
+					            </a>
+					        </h3>
 
-	<?php endif;?>
+					<?php endif;?>
 <!-- credits to Scott [https://github.com/sblessley] for the link function call! -->
 
 
@@ -147,6 +147,7 @@ function my_autosave_acf($post_id)
     }
 }
 // https://github.com/elliotcondon/acf/issues/585
+?>
 
 /********************************************************/
 // ACF Phone number for BIM Search site 10/2019
@@ -184,7 +185,10 @@ function my_autosave_acf($post_id)
 </p>
 
 /********************************************************/
-// 
+// Get only the Address and not the coordinates from a GMAP field
 /********************************************************/
-
+Address:
+<?php // the_field('business_address');
+$map_location = get_field('business_address');
+echo $map_location['address'];
 ?>
