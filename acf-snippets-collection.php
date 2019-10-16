@@ -147,3 +147,44 @@ function my_autosave_acf($post_id)
     }
 }
 // https://github.com/elliotcondon/acf/issues/585
+
+/********************************************************/
+// ACF Phone number for BIM Search site 10/2019
+/********************************************************/
+<p>business_phone:
+    <a
+        class=""
+        href="tel:<?php the_field('business_phone');?>"
+        target="_blank"
+        title="<?php the_field('business_phone');?>">
+        <?php the_field('business_phone');?>
+    </a>
+</p>
+
+/********************************************************/
+// ACF Email and Url links for BIM Search site 10/2019
+/********************************************************/
+<p>email_address: <?php // the_field('email_address');?>
+    <a
+        class=""
+        href="mailto:<?php the_field('email_address');?>"
+        target="_blank"
+        title="<?php the_field('email_address');?>">
+        <?php the_field('email_address');?>
+    </a>
+</p>
+<p>website_address: <?php // the_field('website_address');?>
+    <a
+        class=""
+        href="<?php echo esc_url(get_field('website_address')); ?>"
+        target="_blank"
+        title="<?php echo esc_html(get_field('website_address')); ?>">
+        <?php echo esc_html(get_field('website_address')); ?>
+    </a>
+</p>
+
+/********************************************************/
+// 
+/********************************************************/
+
+?>
