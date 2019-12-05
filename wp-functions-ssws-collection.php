@@ -23,16 +23,19 @@ function ssws_Add_GoogleAnalytics() {
      if (@$_COOKIE["COOKIENAME"] !== "COOKIEVALUE") {
         // Insert Analytics Code Here
         ?>
-          <!-- Global site tag (gtag.js) - Google Analytics -->
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11xxxxxx-1"></script>
-          <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-11xxxxxx-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
 
-            gtag('config', 'UA-11xxxxxx-1');
-          </script>
-        <?php
+function gtag() {
+    dataLayer.push(arguments);
+}
+gtag('js', new Date());
+
+gtag('config', 'UA-11xxxxxx-1');
+</script>
+<?php
      }
   }
 }
@@ -291,7 +294,7 @@ add_shortcode('ssws-search', 'ssws_search_form');
 // requires a shortcode in the header file
 /*<?php echo do_shortcode('[ssws-search]'); ?>*/
 
-    //search form in the header can be easly replaced with this:
+//search form in the header can be easly replaced with this:
 
 
 /********************************************************/
@@ -303,16 +306,16 @@ add_theme_support( 'html5', array( 'search-form' ) );
 add_filter('wp_nav_menu_items', 'ssws_add_search_form_to_menu', 10, 2);
 function ssws_add_search_form_to_menu($items, $args) {
 
-  // If this isn't the main navbar menu, do nothing
-  if( !($args->theme_location == 'main') ) // or set to 'secondary' if the option in Customizr is enabled
-    return $items;
+// If this isn't the main navbar menu, do nothing
+if( !($args->theme_location == 'main') ) // or set to 'secondary' if the option in Customizr is enabled
+return $items;
 
-  // On main menu: put styling around search and append it to the menu items
-  return $items . '<li class="my-nav-menu-search">' . get_search_form(false) . '</li>';
+// On main menu: put styling around search and append it to the menu items
+return $items . '<li class="my-nav-menu-search">' . get_search_form(false) . '</li>';
 }
 /*need in the css:
-    font-family: FontAwesome;
-    content: '\f002';*/
+font-family: FontAwesome;
+content: '\f002';*/
 //http://www.themesandco.com/snippet/adding-an-html5-search-form-in-your-wordpress-menu/
 
 
@@ -321,45 +324,48 @@ function ssws_add_search_form_to_menu($items, $args) {
 /********************************************************/
 add_filter('tc_menu_display', 'ssws_menu_display');
 function ssws_menu_display($output) {
-    return preg_replace('|<span class="icon-bar"></span>|', null, $output);
+return preg_replace('|<span class="icon-bar"></span>|', null, $output);
 }
 // requires css content: "Menu";
 // http://themesandco.com/snippet/add-menu-text-3-bar-menu-button/
 
 
 /********************************************************/
-// <!-- http://wordpress.stackexchange.com/questions/16070/how-to-highlight-search-terms-without-plugin -->
-// <!-- HIGHLIGHT THE SEARCH TERMS IN RESULTS -->
+//
+<!-- http://wordpress.stackexchange.com/questions/16070/how-to-highlight-search-terms-without-plugin -->
+//
+<!-- HIGHLIGHT THE SEARCH TERMS IN RESULTS -->
 /********************************************************/
 function ssws_search_excerpt_highlight() {
-    $excerpt = get_the_excerpt();
-    $keys = implode('|', explode(' ', get_search_query()));
-    $excerpt = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $excerpt);
+$excerpt = get_the_excerpt();
+$keys = implode('|', explode(' ', get_search_query()));
+$excerpt = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $excerpt);
 
-    //echo '<p>' . $excerpt . '</p>';
-    //echo $excerpt;
+//echo '<p>' . $excerpt . '</p>';
+//echo $excerpt;
 }
 
 function search_title_highlight() {
-    $title = get_the_title();
-    $keys = implode('|', explode(' ', get_search_query()));
-    $title = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $title);
+$title = get_the_title();
+$keys = implode('|', explode(' ', get_search_query()));
+$title = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $title);
 
-    //echo $title;
+//echo $title;
 }
 
 function search_content_highlight() {
-    $content = get_the_content();
-    $keys = implode('|', explode(' ', get_search_query()));
-    $content = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $content);
+$content = get_the_content();
+$keys = implode('|', explode(' ', get_search_query()));
+$content = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $content);
 
-    //echo '<p>' . $content . '</p>';
+//echo '<p>' . $content . '</p>';
 }
 
 //requires some changes in the search.php:
 
-      //<!-- <h2><a href="<?php the_permalink() ? >" rel="bookmark"><?php the_title(); ? ></a></h2> -->
-      //<h2><a href="<?php the_permalink() ? >" rel="bookmark"><?php search_title_highlight(); ? ></a></h2>
+//
+<!-- <h2><a href="<?php the_permalink() ? >" rel="bookmark"><?php the_title(); ? ></a></h2> -->
+//<h2><a href="<?php the_permalink() ? >" rel="bookmark"><?php search_title_highlight(); ? ></a></h2>
 
       //<?php //the_excerpt(); ? >
 
@@ -517,19 +523,19 @@ function ssws_link_in_tagline() {
     global $wp_current_filter;
     ?>
         <?php if ( !in_array( '__navbar' , $wp_current_filter ) )  :?>
-            <div class="container outside">
-                <h2 class="site-description">
-                    <?php //bloginfo( 'description' ); ?>
-                    <a href="http://#/" title="###">###</a>
-                </h2> 
-            </div>
+            <div class=" container outside">
+        <h2 class="site-description">
+            <?php //bloginfo( 'description' ); ?>
+            <a href="http://#/" title="###">###</a>
+        </h2>
+        </div>
         <?php else : //when hooked on __navbar ?>
-            <h2 class="span7 inside site-description">
-                <?php //bloginfo( 'description' ); ?>
-                <a href="http://#/" title="###">###</a>
-            </h2>
+        <h2 class="span7 inside site-description">
+            <?php //bloginfo( 'description' ); ?>
+            <a href="http://#/" title="###">###</a>
+        </h2>
         <?php endif; ?>
-    <?php
+        <?php
 }
 
 
@@ -574,16 +580,18 @@ add_filter( 'login_headertitle', 'ssws_login_logo_url_title' );
 // Change Login Logo ver. 2.0
 /********************************************************/
 function ssws_login_logo() { ?>
-    <style type="text/css">
-        #login h1 a, .login h1 a {
-            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/images/logo.png);
+        <style type="text/css">
+        #login h1 a,
+        .login h1 a {
+            background-image: url(<?php echo get_stylesheet_directory_uri();
+            ?>/images/logo.png);
             padding-bottom: 30px;
             background-size: 436px 123px;
             width: 436px;
             height: 123px;
         }
-    </style>
-<?php }
+        </style>
+        <?php }
 add_action( 'login_enqueue_scripts', 'ssws_login_logo' );
 
 // Change the Login Logo URL
@@ -804,24 +812,26 @@ add_action('wp_footer', 'postlist_smallwidth_disable_alternate_layout');
 function postlist_smallwidth_disable_alternate_layout(){
 $tb_position = "after"; /* "before" article-content or "after" article-content */
 ?>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            ! function ($) {
+        <script type="text/javascript">
+        jQuery(document).ready(function() {
+            ! function($) {
 
                 var $thumbnails = $('article section[class*="tc-thumbnail"]'),
                     $contents = $('article section[class*="tc-content"]').not(".span12"),
                     reordered = false;
 
                 //reordering function
-                function reordering(reorder){
+                function reordering(reorder) {
                     var position = '<?php echo $tb_position; ?>',
-                    iterator = ( (position == "before" && reorder) || ( position != "before" && ! reorder ) ) ? $thumbnails : $contents;
-      
+                        iterator = ((position == "before" && reorder) || (position != "before" && !reorder)) ?
+                        $thumbnails : $contents;
+
                     reordered = reorder;
-      
+
                     iterator.each(
-                        function(){
-                            if ( $(this).next().is('section') || (!reorder && ! $(this).parent().hasClass('reordered')) )
+                        function() {
+                            if ($(this).next().is('section') || (!reorder && !$(this).parent().hasClass(
+                                    'reordered')))
                                 return;
 
                             $(this).prependTo($(this).parent());
@@ -830,23 +840,23 @@ $tb_position = "after"; /* "before" article-content or "after" article-content *
                     );
                 }
 
-                function reorder_or_revert(){
-                    if ( $thumbnails.width() == $thumbnails.parent().width() && ! reordered )
+                function reorder_or_revert() {
+                    if ($thumbnails.width() == $thumbnails.parent().width() && !reordered)
                         reordering(true);
-                    else if ( $thumbnails.width() != $thumbnails.parent().width() && reordered )
+                    else if ($thumbnails.width() != $thumbnails.parent().width() && reordered)
                         reordering(false);
                 }
 
                 reorder_or_revert();
 
-                $(window).resize(function () {
+                $(window).resize(function() {
                     //call the function with a timeout of 500 ms when resing window.
                     setTimeout(reorder_or_revert, 500);
-                }); 
-             }(window.jQuery);
-         });
-    </script>
-<?php
+                });
+            }(window.jQuery);
+        });
+        </script>
+        <?php
 }
 //http://themesandco.com/snippet/post-list-thumbnails-reordering/
 
@@ -928,37 +938,39 @@ function set_fp_item_order() {
         'button',
     );
     ?>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            ! function ($) {
+        <script type="text/javascript">
+        jQuery(document).ready(function() {
+            ! function($) {
                 //prevents js conflicts
                 "use strict";
-                var ssws_item_order   = [<?php echo '"'.implode('","', $ssws_item_order).'"' ?>],
-                  $Wrapper    = '';
+                var ssws_item_order = [ < ? php echo '"'.implode('","', $ssws_item_order).
+                        '"' ? >
+                    ],
+                    $Wrapper = '';
 
-                if ( 0 != $('.widget-front' , '#main-wrapper .marketing' ).length ) {
-                  $Wrapper = $('.widget-front' , '#main-wrapper .marketing' );
-                } else if ( 0 != $('.fpc-widget-front' , '#main-wrapper .fpc-marketing' ).length ) {
-                  //for FPU users
-                  $Wrapper = $('.fpc-widget-front' , '#main-wrapper .fpc-marketing' );
+                if (0 != $('.widget-front', '#main-wrapper .marketing').length) {
+                    $Wrapper = $('.widget-front', '#main-wrapper .marketing');
+                } else if (0 != $('.fpc-widget-front', '#main-wrapper .fpc-marketing').length) {
+                    //for FPU users
+                    $Wrapper = $('.fpc-widget-front', '#main-wrapper .fpc-marketing');
                 } else {
-                  return;
+                    return;
                 }
 
-                $Wrapper.each( function() {
-                    var o            = [];
-                    o['title']   = $(this).find('h2');
-                    o['image']   = $(this).find('.thumb-wrapper');
-                    o['text']    = $(this).find('p');
-                    o['button']  = $(this).find('a.btn');
+                $Wrapper.each(function() {
+                    var o = [];
+                    o['title'] = $(this).find('h2');
+                    o['image'] = $(this).find('.thumb-wrapper');
+                    o['text'] = $(this).find('p');
+                    o['button'] = $(this).find('a.btn');
                     for (var i = 0; i < ssws_item_order.length - 1; i++) {
-                       o[ssws_item_order[i]].after(o[ssws_item_order[i+1]]);
+                        o[ssws_item_order[i]].after(o[ssws_item_order[i + 1]]);
                     };
                 });
             }(window.jQuery)
         });
-    </script>
-    <?php
+        </script>
+        <?php
 }
 //http://themesandco.com/snippet/reordering-featured-page-elements-title-image-text-button/
 
@@ -1495,13 +1507,15 @@ function custom_icon_phone_number() {
   $class =  apply_filters( 'tc_social_header_block_class', 'span5' );
   ob_start();
 ?>
-  <div class="social-block <?php echo $class ?>">
-    <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_header') ) : ?>
-      <?php echo tc__f( '__get_socials' ) ?>
-        <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span class="fa fa-phone"></span></a>
-      <?php endif; ?>
-  </div><!--.social-block-->
-<?php
+        <div class="social-block <?php echo $class ?>">
+            <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_header') ) : ?>
+            <?php echo tc__f( '__get_socials' ) ?>
+            <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span
+                    class="fa fa-phone"></span></a>
+            <?php endif; ?>
+        </div>
+        <!--.social-block-->
+        <?php
   $html = ob_get_contents();
   ob_end_clean();
   return $html;
@@ -1513,13 +1527,15 @@ function custom_icon_phone_number_footer() {
   $class =  apply_filters( 'tc_colophon_left_block_class', 'span3' );
   ob_start();
 ?>
-  <div class="social-block <?php echo $class ?>">
-    <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_footer') ) : ?>
-      <?php echo tc__f( '__get_socials' ) ?>
-        <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span class="fa fa-phone"></span></a>
-      <?php endif; ?>
-  </div><!--.social-block-->
-<?php
+        <div class="social-block <?php echo $class ?>">
+            <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_footer') ) : ?>
+            <?php echo tc__f( '__get_socials' ) ?>
+            <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span
+                    class="fa fa-phone"></span></a>
+            <?php endif; ?>
+        </div>
+        <!--.social-block-->
+        <?php
   $html = ob_get_contents();
   ob_end_clean();
   return $html;
@@ -1531,13 +1547,15 @@ function custom_icon_phone_number_sidebar() {
   $class =  apply_filters( 'tc_sidebar_block_social_class', 'widget_social' );
   ob_start();
 ?>
-  <div class="social-block <?php echo $class ?>">
-    <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_left-sidebar') ) : ?>
-      <?php echo tc__f( '__get_socials' ) ?>
-        <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span class="fa fa-phone"></span></a>
-      <?php endif; ?>
-  </div><!--.social-block-->
-<?php
+        <div class="social-block <?php echo $class ?>">
+            <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_left-sidebar') ) : ?>
+            <?php echo tc__f( '__get_socials' ) ?>
+            <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span
+                    class="fa fa-phone"></span></a>
+            <?php endif; ?>
+        </div>
+        <!--.social-block-->
+        <?php
   $html = ob_get_contents();
   ob_end_clean();
   return $html;
@@ -1590,18 +1608,18 @@ add_action( 'init', 'wpcodex_add_excerpt_support_for_pages' );
 add_action('wp_footer', 'add_disableLinks');
 function add_disableLinks() { 
   ?>
-    <script>
-      jQuery(document).ready(function($) {
-        $("#menu-item-274, #menu-item-315").children("a").attr('href', "javascript:void(0)");
+        <script>
+        jQuery(document).ready(function($) {
+            $("#menu-item-274, #menu-item-315").children("a").attr('href', "javascript:void(0)");
 
-        // disable links with a class .no-landing
-        $(".no-landing").children("a").attr('href', "javascript:void(0)");
+            // disable links with a class .no-landing
+            $(".no-landing").children("a").attr('href', "javascript:void(0)");
 
-        // disable targeted links e.g. breadcrumb trail
-        $("a[href='http://www.cbc.com'], a[href='http://www.cnn.com']").attr('href', "javascript:void(0)");
-      });
-    </script>
-  <?php 
+            // disable targeted links e.g. breadcrumb trail
+            $("a[href='http://www.cbc.com'], a[href='http://www.cnn.com']").attr('href', "javascript:void(0)");
+        });
+        </script>
+        <?php 
 }
 
 
@@ -1644,21 +1662,21 @@ function add_current_nav_class($classes, $item) {
 add_action('wp_footer', 'add_openExternalLinksNewTab');
 function add_openExternalLinksNewTab() {
   ?>
-    <script>
-      jQuery(document).ready(function($) {
-        $('a').each(function() {
-           var a = new RegExp('/' + window.location.host + '/');
-           if(!a.test(this.href)) {
-               $(this).click(function(event) {
-                   event.preventDefault();
-                   event.stopPropagation();
-                   window.open(this.href, '_blank');
-               });
-           }
+        <script>
+        jQuery(document).ready(function($) {
+            $('a').each(function() {
+                var a = new RegExp('/' + window.location.host + '/');
+                if (!a.test(this.href)) {
+                    $(this).click(function(event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        window.open(this.href, '_blank');
+                    });
+                }
+            });
         });
-      });
-    </script>
-  <?php
+        </script>
+        <?php
 }
 // https://css-tricks.com/snippets/jquery/open-external-links-in-new-window/
 
@@ -1815,24 +1833,36 @@ else return '<a class="price-login" href="/?p=195">Login</a> o <a class="price-l
 /********************************************************/
 add_action('wp_head', 'add_pixelcode');
 function add_pixelcode() { ?>
-  <!-- Facebook Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1234567890987654321'); // Insert your pixel ID here.
-    fbq('track', 'PageView');
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1234567890987654321&ev=PageView&noscript=1"
-    />
-  </noscript>
-  <!-- DO NOT MODIFY -->
-  <!-- End Facebook Pixel Code -->
-<?php 
+        <!-- Facebook Pixel Code -->
+        <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window,
+            document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1234567890987654321'); // Insert your pixel ID here.
+        fbq('track', 'PageView');
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none"
+                src="https://www.facebook.com/tr?id=1234567890987654321&ev=PageView&noscript=1" />
+        </noscript>
+        <!-- DO NOT MODIFY -->
+        <!-- End Facebook Pixel Code -->
+        <?php 
 }
 
 
@@ -2110,7 +2140,7 @@ function ssws_change_post_object() {
 function replace_admin_menu_icons_css()
 {
     ?>
-    <style>
+        <style>
         .dashicons-admin-post::before {
             content: "";
             background-image: url('/wp-content/themes/minimal-lite-child/assets/images/menu-icon@2x.png');
@@ -2118,7 +2148,23 @@ function replace_admin_menu_icons_css()
             background-repeat: no-repeat;
         }
         }
-    </style>
-    <?php
+        </style>
+        <?php
 }
 add_action('admin_head', 'replace_admin_menu_icons_css');
+
+/********************************************************/
+// Change “Add title” help text for custom post types or posts
+/********************************************************/
+add_filter('gettext','ssws_custom_add_title');
+
+function ssws_custom_add_title( $input ) {
+
+    global $post_type;
+
+    if( is_admin() && 'Add title' == $input && 'ssws-cpt' == $post_type )
+        return 'Add CPT Title';
+
+    return $input;
+}
+// https://wordpress.stackexchange.com/questions/6818/change-enter-title-here-help-text-on-a-custom-post-type/#answer-6820
