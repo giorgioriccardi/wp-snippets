@@ -2168,3 +2168,24 @@ function ssws_custom_add_title( $input ) {
     return $input;
 }
 // https://wordpress.stackexchange.com/questions/6818/change-enter-title-here-help-text-on-a-custom-post-type/#answer-6820
+
+/********************************************************/
+// SSWS Remove inline style for <figure>
+/********************************************************/
+// To remove the inline width in a clean PHP-way could be done with a filter, as described in the source code: https://core.trac.wordpress.org/browser/trunk/src/wp-includes/media.php#L1587
+add_filter('img_caption_shortcode_width', '__return_false');
+// https://wordpress.stackexchange.com/questions/89221/removing-inline-styles-from-wp-caption-div
+
+/********************************************************/
+// SSWS Remove html tags from excerpt and content
+/********************************************************/
+// $content = get_the_content();
+// echo wp_filter_nohtml_kses( $content ); //or strip_tags()
+// $content = apply_filters('the_content', $content);
+function ssws_remove_html_tags_from_text($content)
+{
+    $content = wp_filter_nohtml_kses($content);
+    return $content;
+}
+add_filter('the_content', 'ssws_remove_html_tags_from_text');
+// this solution removes also the <html> tag, which is a problem in FE
