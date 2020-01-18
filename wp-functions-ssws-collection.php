@@ -2189,3 +2189,26 @@ function ssws_remove_html_tags_from_text($content)
 }
 add_filter('the_content', 'ssws_remove_html_tags_from_text');
 // this solution removes also the <html> tag, which is a problem in FE
+
+/********************************************************/
+// Filter Gutenberg Blocks
+/********************************************************/
+
+function ssws_allowed_block_types($allowed_block_types, $post)
+{
+    if ($post->post_type !== 'post') {
+        return $allowed_block_types;
+    }
+    return array(
+        // List here: https://gist.github.com/giorgioriccardi/71f97eeb1646314386f14043cf0e8124
+        'core/paragraph',
+        'core/image',
+        'core/list',
+        'core/video',
+        'core/quote',
+    );
+}
+
+add_filter('allowed_block_types', 'ssws_allowed_block_types', 10, 2);
+// https://developer.wordpress.org/block-editor/developers/filters/block-filters/
+// https://developer.wordpress.org/block-editor/
