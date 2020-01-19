@@ -2212,3 +2212,38 @@ function ssws_allowed_block_types($allowed_block_types, $post)
 add_filter('allowed_block_types', 'ssws_allowed_block_types', 10, 2);
 // https://developer.wordpress.org/block-editor/developers/filters/block-filters/
 // https://developer.wordpress.org/block-editor/
+
+/********************************************************/
+// Change & Add Image Sizes, child-theme
+/********************************************************/
+
+// Enable function to set new image sizes
+// add_theme_support('post-thumbnails'); // not necessary for child-theme
+
+// Add/Remove Image Sizes
+function ssws_add_image_sizes()
+{
+    // Remove minimal-lite default sizes
+    remove_image_size('medium_large');
+    
+    // Add SSWS custom sizes
+    add_image_size('mobile-all-375x280', '375', '280', ["center", "center"]);
+    add_image_size('hero-1919x610', '1919', '610', ["center", "center"]);
+    add_image_size('profile-image-102x102', '102', '102', ["center", "center"]);
+}
+add_action('after_setup_theme', 'ssws_add_image_sizes', 11);
+
+// Enable New Sizes to WP
+function ssws_custom_image_sizes($size_names)
+{
+    $ssws_sizes = array(
+        'hero-1919x610' => __('Hero Slider'),
+        'mobile-all-375x280' => __('Mobile (all)'),
+        'profile-image-102x102' => __('Profile Image'),
+    );
+    return array_merge($size_names, $ssws_sizes);
+}
+add_filter('image_size_names_choose', 'ssws_custom_image_sizes');
+// https://developer.wordpress.org/reference/hooks/image_size_names_choose/
+
+// End Change & Add Image Sizes, child-theme
