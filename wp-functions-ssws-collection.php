@@ -11,7 +11,6 @@ function ssws_google_font() {
 }
 //<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 
-
 /********************************************************/
 // Add Google Analytics script
 /********************************************************/
@@ -54,7 +53,17 @@ gtag('config', 'UA-11xxxxxx-1');
     add_filter('excerpt_more', 'ssws_excerpt_more');
     /*end of MORE*/
 
+/******************************************************/
+// Replaces the excerpt [...] with ... text by a link
+/******************************************************/
+    function ssws_excerpt_read_more_link($more)
+    {
+        global $post;
+        return '<a class="moretag" href="' . get_permalink($post->ID) . '">...</a>';
+    }
+    add_filter('excerpt_more', 'ssws_excerpt_read_more_link');
 
+    
 /********************************************************/
 //Change WordPress Excerpt length
 /********************************************************/
