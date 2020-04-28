@@ -28,7 +28,7 @@ function ssws_Add_GoogleAnalytics() {
 window.dataLayer = window.dataLayer || [];
 
 function gtag() {
-    dataLayer.push(arguments);
+  dataLayer.push(arguments);
 }
 gtag('js', new Date());
 
@@ -65,7 +65,7 @@ gtag('config', 'UA-11xxxxxx-1');
 
     
 /********************************************************/
-//Change WordPress Excerpt length
+// Change WordPress Excerpt length
 /********************************************************/
 function ssws_custom_excerpt_length( $length ) {
   return 20;
@@ -533,18 +533,18 @@ function ssws_link_in_tagline() {
     ?>
         <?php if ( !in_array( '__navbar' , $wp_current_filter ) )  :?>
             <div class=" container outside">
-        <h2 class="site-description">
-            <?php //bloginfo( 'description' ); ?>
-            <a href="http://#/" title="###">###</a>
-        </h2>
-        </div>
-        <?php else : //when hooked on __navbar ?>
-        <h2 class="span7 inside site-description">
-            <?php //bloginfo( 'description' ); ?>
-            <a href="http://#/" title="###">###</a>
-        </h2>
-        <?php endif; ?>
-        <?php
+    <h2 class="site-description">
+      <?php //bloginfo( 'description' ); ?>
+      <a href="http://#/" title="###">###</a>
+    </h2>
+    </div>
+    <?php else : //when hooked on __navbar ?>
+    <h2 class="span7 inside site-description">
+      <?php //bloginfo( 'description' ); ?>
+      <a href="http://#/" title="###">###</a>
+    </h2>
+    <?php endif; ?>
+    <?php
 }
 
 
@@ -589,18 +589,18 @@ add_filter( 'login_headertitle', 'ssws_login_logo_url_title' );
 // Change Login Logo ver. 2.0
 /********************************************************/
 function ssws_login_logo() { ?>
-        <style type="text/css">
-        #login h1 a,
-        .login h1 a {
-            background-image: url(<?php echo get_stylesheet_directory_uri();
-            ?>/images/logo.png);
-            padding-bottom: 30px;
-            background-size: 436px 123px;
-            width: 436px;
-            height: 123px;
-        }
-        </style>
-        <?php }
+    <style type="text/css">
+    #login h1 a,
+    .login h1 a {
+      background-image: url(<?php echo get_stylesheet_directory_uri();
+      ?>/images/logo.png);
+      padding-bottom: 30px;
+      background-size: 436px 123px;
+      width: 436px;
+      height: 123px;
+    }
+    </style>
+    <?php }
 add_action( 'login_enqueue_scripts', 'ssws_login_logo' );
 
 // Change the Login Logo URL
@@ -821,51 +821,51 @@ add_action('wp_footer', 'postlist_smallwidth_disable_alternate_layout');
 function postlist_smallwidth_disable_alternate_layout(){
 $tb_position = "after"; /* "before" article-content or "after" article-content */
 ?>
-        <script type="text/javascript">
-        jQuery(document).ready(function() {
-            ! function($) {
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+      ! function($) {
 
-                var $thumbnails = $('article section[class*="tc-thumbnail"]'),
-                    $contents = $('article section[class*="tc-content"]').not(".span12"),
-                    reordered = false;
+        var $thumbnails = $('article section[class*="tc-thumbnail"]'),
+          $contents = $('article section[class*="tc-content"]').not(".span12"),
+          reordered = false;
 
-                //reordering function
-                function reordering(reorder) {
-                    var position = '<?php echo $tb_position; ?>',
-                        iterator = ((position == "before" && reorder) || (position != "before" && !reorder)) ?
-                        $thumbnails : $contents;
+        //reordering function
+        function reordering(reorder) {
+          var position = '<?php echo $tb_position; ?>',
+            iterator = ((position == "before" && reorder) || (position != "before" && !reorder)) ?
+            $thumbnails : $contents;
 
-                    reordered = reorder;
+          reordered = reorder;
 
-                    iterator.each(
-                        function() {
-                            if ($(this).next().is('section') || (!reorder && !$(this).parent().hasClass(
-                                    'reordered')))
-                                return;
+          iterator.each(
+            function() {
+              if ($(this).next().is('section') || (!reorder && !$(this).parent().hasClass(
+                  'reordered')))
+                return;
 
-                            $(this).prependTo($(this).parent());
-                            $(this).parent().toggleClass('reordered');
-                        }
-                    );
-                }
+              $(this).prependTo($(this).parent());
+              $(this).parent().toggleClass('reordered');
+            }
+          );
+        }
 
-                function reorder_or_revert() {
-                    if ($thumbnails.width() == $thumbnails.parent().width() && !reordered)
-                        reordering(true);
-                    else if ($thumbnails.width() != $thumbnails.parent().width() && reordered)
-                        reordering(false);
-                }
+        function reorder_or_revert() {
+          if ($thumbnails.width() == $thumbnails.parent().width() && !reordered)
+            reordering(true);
+          else if ($thumbnails.width() != $thumbnails.parent().width() && reordered)
+            reordering(false);
+        }
 
-                reorder_or_revert();
+        reorder_or_revert();
 
-                $(window).resize(function() {
-                    //call the function with a timeout of 500 ms when resing window.
-                    setTimeout(reorder_or_revert, 500);
-                });
-            }(window.jQuery);
+        $(window).resize(function() {
+          //call the function with a timeout of 500 ms when resing window.
+          setTimeout(reorder_or_revert, 500);
         });
-        </script>
-        <?php
+      }(window.jQuery);
+    });
+    </script>
+    <?php
 }
 //http://themesandco.com/snippet/post-list-thumbnails-reordering/
 
@@ -901,8 +901,9 @@ add_filter('pre_get_posts', 'exclude_category');
 
 
 /********************************************************/
-//Inheriting parent styles in WordPress child themes
+// Inheriting parent styles in WordPress child themes
 /********************************************************/
+// ver 2.0
 add_action( 'wp_enqueue_scripts', 'ssws_theme_enqueue_styles' );
 function ssws_theme_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
@@ -910,6 +911,7 @@ function ssws_theme_enqueue_styles() {
 // https://codex.wordpress.org/Child_Themes
 
 // from mor10
+// ver 1.0
 add_action( 'wp_enqueue_scripts', 'enqueue_child_theme_styles', PHP_INT_MAX);
 function enqueue_child_theme_styles() {
     wp_enqueue_style( 'child-style', get_stylesheet_uri(), array('parent-theme-name-style') );
@@ -917,11 +919,27 @@ function enqueue_child_theme_styles() {
 }
 
 // in alternative for some themes:
+// ver 3.0
 function get_parent_theme_css() {
   wp_enqueue_style( 'your-child-theme-name', get_template_directory_uri() . '/style.css' );
 }
 add_action( 'wp_enqueue_scripts', 'get_parent_theme_css' );
 //http://mor10.com/challenges-new-method-inheriting-parent-styles-wordpress-child-themes/
+
+/********************************************************/
+// Enqueue the parent theme stylesheet, then the child theme stylesheet.
+// Used in place of @import rule in child theme style.css
+/********************************************************/
+// ver 4.0
+add_action('wp_enqueue_scripts', 'ssws_enqueue_styles');
+function ssws_enqueue_styles()
+{
+    // store style version
+    $version = wp_get_theme()->get('Version');
+
+    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css', array(), $version);
+}
+// https://developer.wordpress.org/themes/advanced-topics/child-themes/
 
 
 /********************************************************/
@@ -947,39 +965,39 @@ function set_fp_item_order() {
         'button',
     );
     ?>
-        <script type="text/javascript">
-        jQuery(document).ready(function() {
-            ! function($) {
-                //prevents js conflicts
-                "use strict";
-                var ssws_item_order = [ < ? php echo '"'.implode('","', $ssws_item_order).
-                        '"' ? >
-                    ],
-                    $Wrapper = '';
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+      ! function($) {
+        //prevents js conflicts
+        "use strict";
+        var ssws_item_order = [ < ? php echo '"'.implode('","', $ssws_item_order).
+            '"' ? >
+          ],
+          $Wrapper = '';
 
-                if (0 != $('.widget-front', '#main-wrapper .marketing').length) {
-                    $Wrapper = $('.widget-front', '#main-wrapper .marketing');
-                } else if (0 != $('.fpc-widget-front', '#main-wrapper .fpc-marketing').length) {
-                    //for FPU users
-                    $Wrapper = $('.fpc-widget-front', '#main-wrapper .fpc-marketing');
-                } else {
-                    return;
-                }
+        if (0 != $('.widget-front', '#main-wrapper .marketing').length) {
+          $Wrapper = $('.widget-front', '#main-wrapper .marketing');
+        } else if (0 != $('.fpc-widget-front', '#main-wrapper .fpc-marketing').length) {
+          //for FPU users
+          $Wrapper = $('.fpc-widget-front', '#main-wrapper .fpc-marketing');
+        } else {
+          return;
+        }
 
-                $Wrapper.each(function() {
-                    var o = [];
-                    o['title'] = $(this).find('h2');
-                    o['image'] = $(this).find('.thumb-wrapper');
-                    o['text'] = $(this).find('p');
-                    o['button'] = $(this).find('a.btn');
-                    for (var i = 0; i < ssws_item_order.length - 1; i++) {
-                        o[ssws_item_order[i]].after(o[ssws_item_order[i + 1]]);
-                    };
-                });
-            }(window.jQuery)
+        $Wrapper.each(function() {
+          var o = [];
+          o['title'] = $(this).find('h2');
+          o['image'] = $(this).find('.thumb-wrapper');
+          o['text'] = $(this).find('p');
+          o['button'] = $(this).find('a.btn');
+          for (var i = 0; i < ssws_item_order.length - 1; i++) {
+            o[ssws_item_order[i]].after(o[ssws_item_order[i + 1]]);
+          };
         });
-        </script>
-        <?php
+      }(window.jQuery)
+    });
+    </script>
+    <?php
 }
 //http://themesandco.com/snippet/reordering-featured-page-elements-title-image-text-button/
 
@@ -1516,15 +1534,15 @@ function custom_icon_phone_number() {
   $class =  apply_filters( 'tc_social_header_block_class', 'span5' );
   ob_start();
 ?>
-        <div class="social-block <?php echo $class ?>">
-            <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_header') ) : ?>
-            <?php echo tc__f( '__get_socials' ) ?>
-            <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span
-                    class="fa fa-phone"></span></a>
-            <?php endif; ?>
-        </div>
-        <!--.social-block-->
-        <?php
+    <div class="social-block <?php echo $class ?>">
+      <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_header') ) : ?>
+      <?php echo tc__f( '__get_socials' ) ?>
+      <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span
+          class="fa fa-phone"></span></a>
+      <?php endif; ?>
+    </div>
+    <!--.social-block-->
+    <?php
   $html = ob_get_contents();
   ob_end_clean();
   return $html;
@@ -1536,15 +1554,15 @@ function custom_icon_phone_number_footer() {
   $class =  apply_filters( 'tc_colophon_left_block_class', 'span3' );
   ob_start();
 ?>
-        <div class="social-block <?php echo $class ?>">
-            <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_footer') ) : ?>
-            <?php echo tc__f( '__get_socials' ) ?>
-            <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span
-                    class="fa fa-phone"></span></a>
-            <?php endif; ?>
-        </div>
-        <!--.social-block-->
-        <?php
+    <div class="social-block <?php echo $class ?>">
+      <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_footer') ) : ?>
+      <?php echo tc__f( '__get_socials' ) ?>
+      <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span
+          class="fa fa-phone"></span></a>
+      <?php endif; ?>
+    </div>
+    <!--.social-block-->
+    <?php
   $html = ob_get_contents();
   ob_end_clean();
   return $html;
@@ -1556,15 +1574,15 @@ function custom_icon_phone_number_sidebar() {
   $class =  apply_filters( 'tc_sidebar_block_social_class', 'widget_social' );
   ob_start();
 ?>
-        <div class="social-block <?php echo $class ?>">
-            <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_left-sidebar') ) : ?>
-            <?php echo tc__f( '__get_socials' ) ?>
-            <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span
-                    class="fa fa-phone"></span></a>
-            <?php endif; ?>
-        </div>
-        <!--.social-block-->
-        <?php
+    <div class="social-block <?php echo $class ?>">
+      <?php if ( 0 != tc__f( '__get_option', 'tc_social_in_left-sidebar') ) : ?>
+      <?php echo tc__f( '__get_socials' ) ?>
+      <a class="social-icon" href="tel:+1 123-456-7890" title="Call us" target="_self"><span
+          class="fa fa-phone"></span></a>
+      <?php endif; ?>
+    </div>
+    <!--.social-block-->
+    <?php
   $html = ob_get_contents();
   ob_end_clean();
   return $html;
@@ -1617,18 +1635,18 @@ add_action( 'init', 'wpcodex_add_excerpt_support_for_pages' );
 add_action('wp_footer', 'add_disableLinks');
 function add_disableLinks() { 
   ?>
-        <script>
-        jQuery(document).ready(function($) {
-            $("#menu-item-274, #menu-item-315").children("a").attr('href', "javascript:void(0)");
+    <script>
+    jQuery(document).ready(function($) {
+      $("#menu-item-274, #menu-item-315").children("a").attr('href', "javascript:void(0)");
 
-            // disable links with a class .no-landing
-            $(".no-landing").children("a").attr('href', "javascript:void(0)");
+      // disable links with a class .no-landing
+      $(".no-landing").children("a").attr('href', "javascript:void(0)");
 
-            // disable targeted links e.g. breadcrumb trail
-            $("a[href='http://www.cbc.com'], a[href='http://www.cnn.com']").attr('href', "javascript:void(0)");
-        });
-        </script>
-        <?php 
+      // disable targeted links e.g. breadcrumb trail
+      $("a[href='http://www.cbc.com'], a[href='http://www.cnn.com']").attr('href', "javascript:void(0)");
+    });
+    </script>
+    <?php 
 }
 
 
@@ -1671,21 +1689,21 @@ function add_current_nav_class($classes, $item) {
 add_action('wp_footer', 'add_openExternalLinksNewTab');
 function add_openExternalLinksNewTab() {
   ?>
-        <script>
-        jQuery(document).ready(function($) {
-            $('a').each(function() {
-                var a = new RegExp('/' + window.location.host + '/');
-                if (!a.test(this.href)) {
-                    $(this).click(function(event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        window.open(this.href, '_blank');
-                    });
-                }
-            });
-        });
-        </script>
-        <?php
+    <script>
+    jQuery(document).ready(function($) {
+      $('a').each(function() {
+        var a = new RegExp('/' + window.location.host + '/');
+        if (!a.test(this.href)) {
+          $(this).click(function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            window.open(this.href, '_blank');
+          });
+        }
+      });
+    });
+    </script>
+    <?php
 }
 // https://css-tricks.com/snippets/jquery/open-external-links-in-new-window/
 
@@ -1842,36 +1860,36 @@ else return '<a class="price-login" href="/?p=195">Login</a> o <a class="price-l
 /********************************************************/
 add_action('wp_head', 'add_pixelcode');
 function add_pixelcode() { ?>
-        <!-- Facebook Pixel Code -->
-        <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window,
-            document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1234567890987654321'); // Insert your pixel ID here.
-        fbq('track', 'PageView');
-        </script>
-        <noscript>
-            <img height="1" width="1" style="display:none"
-                src="https://www.facebook.com/tr?id=1234567890987654321&ev=PageView&noscript=1" />
-        </noscript>
-        <!-- DO NOT MODIFY -->
-        <!-- End Facebook Pixel Code -->
-        <?php 
+    <!-- Facebook Pixel Code -->
+    <script>
+    ! function(f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function() {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = '2.0';
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = !0;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window,
+      document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1234567890987654321'); // Insert your pixel ID here.
+    fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1234567890987654321&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- DO NOT MODIFY -->
+    <!-- End Facebook Pixel Code -->
+    <?php 
 }
 
 
@@ -2149,16 +2167,16 @@ function ssws_change_post_object() {
 function replace_admin_menu_icons_css()
 {
     ?>
-        <style>
-        .dashicons-admin-post::before {
-            content: "";
-            background-image: url('/wp-content/themes/minimal-lite-child/assets/images/menu-icon@2x.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-        }
-        </style>
-        <?php
+    <style>
+    .dashicons-admin-post::before {
+      content: "";
+      background-image: url('/wp-content/themes/minimal-lite-child/assets/images/menu-icon@2x.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    }
+    </style>
+    <?php
 }
 add_action('admin_head', 'replace_admin_menu_icons_css');
 
