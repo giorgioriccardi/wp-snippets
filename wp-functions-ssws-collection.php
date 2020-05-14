@@ -561,14 +561,14 @@ add_action('login_head', 'ssws_custom_login');
 /********************************************************/
 // Change the WordPress Login Logo old version 1.0
 /********************************************************/
-function custom_login_logo() {
+function ssws_custom_login_logo() {
 echo '
 <style type="text/css">
       h1 a { background-image:url(/images/logo.jpg) !important; }
   </style>
 ';
 }
-add_action('login_head', 'custom_login_logo');
+add_action('login_head', 'ssws_custom_login_logo');
 
 //Changing the default WordPress login URL
 
@@ -669,12 +669,12 @@ add_filter('login_headertitle', 'SSWSLoginTitle');
 
 
 /********************************************************/
-//Make Archives.php Include Custom Post Types
+// Make Archives.php Include Custom Post Types
 /********************************************************/
 
 // this snippet can be paste within the custom plugin created to output the CPT,
 // assuming we are creating a plugin instead of embedding the CPT into functions.php
-function namespace_add_custom_types( $query ) {
+function ssws_add_custom_types( $query ) {
   if( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) {
     $query->set( 'post_type', array(
      'post', 'nav_menu_item', 'your-custom-post-type-here'
@@ -682,8 +682,7 @@ function namespace_add_custom_types( $query ) {
     return $query;
   }
 }
-add_filter( 'pre_get_posts', 'namespace_add_custom_types' );
-
+add_filter( 'pre_get_posts', 'ssws_add_custom_types' );
 //http://css-tricks.com/snippets/wordpress/make-archives-php-include-custom-post-types/
 
 
@@ -1528,8 +1527,8 @@ function ssws_search_form_text($text) {
 /********************************************************/
 
 // Header section
-add_filter ( 'tc_social_in_header' , 'custom_icon_phone_number' );
-function custom_icon_phone_number() {
+add_filter ( 'tc_social_in_header' , 'ssws_custom_icon_phone_number' );
+function ssws_custom_icon_phone_number() {
   //class
   $class =  apply_filters( 'tc_social_header_block_class', 'span5' );
   ob_start();
@@ -1549,8 +1548,8 @@ function custom_icon_phone_number() {
 }
 
 // Footer section
-add_filter ( 'tc_colophon_left_block' , 'custom_icon_phone_number_footer' );
-function custom_icon_phone_number_footer() {
+add_filter ( 'tc_colophon_left_block' , 'ssws_custom_icon_phone_number_footer' );
+function ssws_custom_icon_phone_number_footer() {
   $class =  apply_filters( 'tc_colophon_left_block_class', 'span3' );
   ob_start();
 ?>
@@ -1569,8 +1568,8 @@ function custom_icon_phone_number_footer() {
 }
 
 // Sidebar section
-add_filter ( 'tc_social_in_sidebar' , 'custom_icon_phone_number_sidebar' );
-function custom_icon_phone_number_sidebar() {
+add_filter ( 'tc_social_in_sidebar' , 'ssws_custom_icon_phone_number_sidebar' );
+function ssws_custom_icon_phone_number_sidebar() {
   $class =  apply_filters( 'tc_sidebar_block_social_class', 'widget_social' );
   ob_start();
 ?>
