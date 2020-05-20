@@ -613,14 +613,18 @@ function ssws_login_logo_url_title() {
 }
 add_filter( 'login_headertext', 'ssws_login_logo_url_title' );
 
-// Change the Redirect URL
-function admin_login_redirect( $redirect_to, $request, $user ) {
+// Change the Redirect URL (ver. Standard WP)
+function ssws_admin_login_redirect( $redirect_to, $request, $user ) {
   global $user;
   if( isset( $user->roles ) && is_array( $user->roles ) ) {
     if( in_array( "administrator", $user->roles ) ) {
       return $redirect_to;
     } else {
+      // standard WP
       return home_url();
+
+      // WP Multisite
+      // return network_home_url();
     }
   }
   else
@@ -628,7 +632,25 @@ function admin_login_redirect( $redirect_to, $request, $user ) {
     return $redirect_to;
   }
 }
-add_filter("login_redirect", "admin_login_redirect", 10, 3);
+add_filter("login_redirect", "ssws_admin_login_redirect", 10, 3);
+
+// Change the Redirect URL (ver. Multisite WP)
+function ssws_multisite_login_redirect($redirect_to, $request_redirect_to, $user)
+{
+  global $user;
+	if ( isset( $user->roles ) && is_array( $user->roles ) ) {
+		$user_info = get_userdata($user->ID);
+		if ($user_info->primary_blog) {
+			$primary_url = get_blogaddress_by_id($user_info->primary_blog);
+			if ($primary_url) {
+				wp_redirect($primary_url);
+				die();
+			}
+		}
+	}
+	return $redirect_to;
+}
+add_filter('login_redirect', 'ssws_multisite_login_redirect', 100, 3);
 
 // Set “Remember Me” To Checked
 function login_checked_remember_me() {
