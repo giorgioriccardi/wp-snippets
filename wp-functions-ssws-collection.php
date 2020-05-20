@@ -580,7 +580,7 @@ add_filter( 'login_headerurl', 'ssws_login_logo_url' );
 function ssws_login_logo_url_title() {
     return 'Your Site Name and Info';
 }
-add_filter( 'login_headertitle', 'ssws_login_logo_url_title' );
+add_filter( 'login_headertext', 'ssws_login_logo_url_title' );
 //Here, the get_bloginfo(‘url’) is the URL of your blog, you can change that with whatever URL you may like, but don’t forget to add it between quotes.
 
 
@@ -612,7 +612,7 @@ add_filter( 'login_headerurl', 'ssws_login_logo_url' );
 function ssws_login_logo_url_title() {
   return 'SSWS - Home';
 }
-add_filter( 'login_headertitle', 'ssws_login_logo_url_title' );
+add_filter( 'login_headertext', 'ssws_login_logo_url_title' );
 
 // Change the Redirect URL
 function admin_login_redirect( $redirect_to, $request, $user ) {
@@ -665,7 +665,7 @@ function SSWSLoginCSS()
     wp_enqueue_style('custom-google-fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
 }
 
-add_filter('login_headertitle', 'SSWSLoginTitle');
+add_filter('login_headertext', 'SSWSLoginTitle');
 
 
 /********************************************************/
