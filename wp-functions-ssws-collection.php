@@ -594,10 +594,9 @@ function ssws_login_logo() { ?>
     .login h1 a {
       background-image: url(<?php echo get_stylesheet_directory_uri();
       ?>/images/logo.png);
-      padding-bottom: 30px;
-      background-size: 436px 123px;
-      width: 436px;
-      height: 123px;
+      padding-bottom: 2em;
+      background-size: contain;
+      width: auto;
     }
     </style>
     <?php }
