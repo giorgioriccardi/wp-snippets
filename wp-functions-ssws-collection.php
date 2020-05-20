@@ -609,7 +609,7 @@ function ssws_login_logo_url() {
 add_filter( 'login_headerurl', 'ssws_login_logo_url' );
 
 function ssws_login_logo_url_title() {
-  return 'SSWS - Home';
+  return get_bloginfo( 'name' );
 }
 add_filter( 'login_headertext', 'ssws_login_logo_url_title' );
 
