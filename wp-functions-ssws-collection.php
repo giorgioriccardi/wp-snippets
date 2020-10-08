@@ -693,7 +693,7 @@ add_filter('login_headertext', 'SSWSLoginTitle');
 // Make Archives.php Include Custom Post Types
 /********************************************************/
 
-// this snippet can be paste within the custom plugin created to output the CPT,
+// this snippet can be pasted within the custom plugin created to output the CPT,
 // assuming we are creating a plugin instead of embedding the CPT into functions.php
 function ssws_add_custom_types( $query ) {
   if( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) {
@@ -903,13 +903,32 @@ return '';
 /********************************************************/
 // Exclude post category from displaying on the blog post page
 /********************************************************/
-function exclude_category($query) {
-if ( $query->is_home() ) {
-$query->set('cat', '-51');
+// 01
+function exclude_home_category($query) {
+  if ( $query->is_home() ) {
+      $query->set('cat', '-36'); 
+  }
+  return $query;
 }
-return $query;
+add_filter('pre_get_posts', 'exclude_home_category');
+
+// 02
+/** Features cat #36 only in custom loop, exclude everywhere else */
+function exclude_category( $query ) {
+  if ( $query->is_home() || $query->is_main_query() ) {
+      $query->set( 'cat', '-36' );
+  }
 }
-add_filter('pre_get_posts', 'exclude_category');
+add_action( 'pre_get_posts', 'exclude_category' );
+
+// 03
+/** Exclude Specific Categories From The WordPress Loop */
+function exclude_specific_categories( $wp_query ) { 
+  if( !is_admin() && is_main_query() && is_home() ) {
+      $wp_query->set( 'cat', '-36, 15, 27, -1' );
+  }
+}
+add_action( 'pre_get_posts', 'exclude_specific_categories' );
 //NOTE: this snippet works fine, but in case of ACF relational fields
 // it is best to embed into the index.php this snippet:
 // <?php
