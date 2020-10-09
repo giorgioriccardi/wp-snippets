@@ -922,7 +922,7 @@ function ssws_exclude_home_category($query) {
 add_filter('pre_get_posts', 'ssws_exclude_home_category');
 
 // 02
-/** Features cat #36 only in custom loop, exclude everywhere else */
+/** Features cat #36 only in slider, exclude everywhere else, but widget */
 function ssws_exclude_category( $query ) {
   if ( $query->is_home() || $query->is_main_query() ) {
       $query->set( 'cat', '-36' );
