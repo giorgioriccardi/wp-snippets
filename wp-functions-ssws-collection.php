@@ -217,7 +217,7 @@ add_filter( 'widget_archives_args', 'ssws_limit_archives' );
 
 
 /********************************************************/
-//  Excludes certain categories
+//  Excludes certain categories from category widget
 /********************************************************/
 function ssws_exclude_widget_categories_args_filter( $cat_args ) {
     $exclude_arr = array( 843, 838 ); //here the id of the categories to exclude
@@ -229,6 +229,15 @@ function ssws_exclude_widget_categories_args_filter( $cat_args ) {
 }
 
 add_filter( 'widget_categories_args', 'ssws_exclude_widget_categories_args_filter', 10, 1 );
+
+// Semplified version
+/** Remove category from widget list */
+function ssws_remove_widget_categories($args) {
+  $exclude = '36, 44, 1';
+  $args['exclude'] = $exclude;
+  return $args;
+}
+add_filter('widget_categories_args','ssws_remove_widget_categories');
 
 
 /********************************************************/
@@ -904,31 +913,31 @@ return '';
 // Exclude post category from displaying on the blog post page
 /********************************************************/
 // 01
-function exclude_home_category($query) {
+function ssws_exclude_home_category($query) {
   if ( $query->is_home() ) {
       $query->set('cat', '-36'); 
   }
   return $query;
 }
-add_filter('pre_get_posts', 'exclude_home_category');
+add_filter('pre_get_posts', 'ssws_exclude_home_category');
 
 // 02
 /** Features cat #36 only in custom loop, exclude everywhere else */
-function exclude_category( $query ) {
+function ssws_exclude_category( $query ) {
   if ( $query->is_home() || $query->is_main_query() ) {
       $query->set( 'cat', '-36' );
   }
 }
-add_action( 'pre_get_posts', 'exclude_category' );
+add_action( 'pre_get_posts', 'ssws_exclude_category' );
 
 // 03
 /** Exclude Specific Categories From The WordPress Loop */
-function exclude_specific_categories( $wp_query ) { 
+function ssws_exclude_specific_categories( $wp_query ) { 
   if( !is_admin() && is_main_query() && is_home() ) {
       $wp_query->set( 'cat', '-36, 15, 27, -1' );
   }
 }
-add_action( 'pre_get_posts', 'exclude_specific_categories' );
+add_action( 'pre_get_posts', 'ssws_exclude_specific_categories' );
 //NOTE: this snippet works fine, but in case of ACF relational fields
 // it is best to embed into the index.php this snippet:
 // <?php
