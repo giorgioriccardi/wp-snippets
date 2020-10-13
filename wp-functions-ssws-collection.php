@@ -947,6 +947,15 @@ add_action( 'pre_get_posts', 'ssws_exclude_specific_categories' );
 // ? >
 //http://codex.wordpress.org/Function_Reference/query_posts
 
+/********************************************************/
+/** Hide 1st (or x) Post in Loop */
+/********************************************************/
+function ssws_offset_loop( $query ) {
+  if ( $query->is_home() && $query->is_main_query() ) {
+      $query->set( 'offset', '1' );
+  }
+}
+add_action( 'pre_get_posts', 'ssws_offset_loop' );
 
 /********************************************************/
 // Inheriting parent styles in WordPress child themes
