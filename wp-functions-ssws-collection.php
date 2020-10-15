@@ -2352,3 +2352,53 @@ add_filter('image_size_names_choose', 'ssws_custom_image_sizes');
 // https://developer.wordpress.org/reference/hooks/image_size_names_choose/
 
 // End Change & Add Image Sizes, child-theme
+
+/********************************************************/
+// Get next and previous post links, chronologically 
+// or alphabetically by title, across post types
+/********************************************************/
+
+add_filter('get_next_post_sort', 'filter_next_and_prev_post_sort');
+add_filter('get_previous_post_sort', 'filter_next_and_prev_post_sort');
+function filter_next_and_prev_post_sort($sort)
+{
+    $op = ('get_previous_post_sort' == current_filter()) ? 'DESC' : 'ASC';
+    // $sort = "ORDER BY p.post_title " . $op . " LIMIT 1";
+    $sort = "ORDER BY p.post_date " . $op . " LIMIT 1";
+    return $sort;
+
+}
+
+add_filter('get_next_post_join', 'navigate_in_same_taxonomy_join', 20);
+add_filter('get_previous_post_join', 'navigate_in_same_taxonomy_join', 20);
+function navigate_in_same_taxonomy_join()
+{
+    global $wpdb;
+    return " INNER JOIN $wpdb->term_relationships AS tr ON p.ID = tr.object_id INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id";
+}
+
+add_filter('get_next_post_where', 'filter_next_and_prev_post_where');
+add_filter('get_previous_post_where', 'filter_next_and_prev_post_where');
+function filter_next_and_prev_post_where($original)
+{
+    global $wpdb, $post;
+    $where = '';
+    $taxonomy = 'category';
+    $op = ('get_previous_post_where' == current_filter()) ? '<' : '>';
+
+    if (!is_object_in_taxonomy($post->post_type, $taxonomy)) {
+        return $original;
+    }
+
+    $term_array = wp_get_object_terms($post->ID, $taxonomy, array('fields' => 'ids'));
+
+    $term_array = array_map('intval', $term_array);
+
+    if (!$term_array || is_wp_error($term_array)) {
+        return $original;
+    }
+    $where = " AND tt.term_id IN (" . implode(',', $term_array) . ")";
+    // return $wpdb->prepare("WHERE p.post_title $op %s AND p.post_type = %s AND p.post_status = 'publish' $where", $post->post_title, $post->post_type);
+    return $wpdb->prepare("WHERE p.post_date $op %s AND p.post_type = %s AND p.post_status = 'publish' $where", $post->post_date, $post->post_type);
+}
+// https://wordpress.stackexchange.com/questions/204265/next-previous-posts-links-alphabetically-and-from-same-category
