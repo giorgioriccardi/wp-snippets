@@ -2402,3 +2402,21 @@ function filter_next_and_prev_post_where($original)
     return $wpdb->prepare("WHERE p.post_date $op %s AND p.post_type = %s AND p.post_status = 'publish' $where", $post->post_date, $post->post_type);
 }
 // https://wordpress.stackexchange.com/questions/204265/next-previous-posts-links-alphabetically-and-from-same-category
+
+/********************************************************/
+  // Add CF7 to bottom content section (for Blocksy Framework Hooks)
+/********************************************************/
+function ssws_cf7_embed() {
+	//   echo '<pre>Test</pre>';
+	$output = '<div class="wp-block-ugb-container ugb-container>
+				<div class="ugb-container__content-wrapper">
+					[contact-form-7 id="5547" title="Contact form 1"]
+				</div>
+			</div>';
+
+	echo do_shortcode( $output );
+	//   echo do_shortcode( '[contact-form-7 id="5547" title="Contact form 1"]' );
+}
+//   add_action('blocksy:single:content:bottom', 'ssws_cf7_embed');
+//   add_action('blocksy:single:bottom', 'ssws_cf7_embed');
+add_action('blocksy:content:bottom', 'ssws_cf7_embed');
