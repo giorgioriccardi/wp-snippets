@@ -1,9 +1,13 @@
+/********************************************************/
 // Edit the client/browser view
+/********************************************************/
 javascript: document.body.contentEditable = true;
 void 0;
 // credits: https://nickjanetakis.com/blog/temporarily-edit-text-on-any-website
 
+/********************************************************/
 // CF7 focus form labels effect
+/********************************************************/
 // Add a .focused class to style with an animation class
 jQuery(document).ready(function ($) {
   // contact form focus
@@ -30,8 +34,7 @@ jQuery(document).ready(function ($) {
       });
     });
   })();
-  // end CF7 focus effect
-}); // end document.ready
+}); // end CF7 focus effect
 // credits: https://mikelaroy.ca/wp_site/wp-content/themes/mikelaroy-2016/dist/assets/js/app.js
 // css: CF7 labels animation
 /*
@@ -52,7 +55,9 @@ label .label.focused {
 }
 */
 
+/********************************************************/
 // Add Smooth Scroll effect via js animate()
+/********************************************************/
 jQuery(document).ready(function ($) {
   // Smooth Scroll
   $(function () {
@@ -79,7 +84,36 @@ jQuery(document).ready(function ($) {
       }
     });
   });
-  // end Smooth Scroll
-}); // end document.ready
+}); // end Smooth Scroll
 // source: https://nvision.co/development/smooth-scroll-simple-javascript/
 // credits: https://www.learningjquery.com/2007/10/improved-animated-scrolling-script-for-same-page-links
+
+/********************************************************/
+// Open External Links In New Tab
+/********************************************************/\
+// jQuey version
+jQuery(document).ready(function ($) {
+  $("a").each(function () {
+    var a = new RegExp("/" + window.location.host + "/");
+    if (!a.test(this.href)) {
+      $(this).click(function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.open(this.href, "_blank");
+        console.log("ext-link");
+      });
+    }
+  });
+}); // end jQuey version
+
+// vanilla JavaScript version
+var links = document.links;
+
+for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+    if (links[i].hostname != window.location.hostname) {
+        links[i].target = '_blank';
+        links[i].rel = 'noopener';
+        // console.log('ext-link');
+    }
+} // end vanilla JavaScript version
+// end Open External Links In New Tab
