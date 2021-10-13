@@ -33,6 +33,24 @@ jQuery(document).ready(function ($) {
   // end CF7 focus effect
 }); // end document.ready
 // credits: https://mikelaroy.ca/wp_site/wp-content/themes/mikelaroy-2016/dist/assets/js/app.js
+// css: CF7 labels animation
+/*
+label .label {
+    display: inline-block;
+    position: relative;
+    transform: translateY(140%) translateX(12%);
+    transition-delay: 0s;
+    transition-duration: 0.25s;
+    transition-property: transform;
+    transition-timing-function: ease;
+    z-index: 50;
+}
+
+label .label.focused {
+    color: var(--dark-blue-03-color);
+    transform: translateY(0px) translateX(0px);
+}
+*/
 
 // Add Smooth Scroll effect via js animate()
 jQuery(document).ready(function ($) {
