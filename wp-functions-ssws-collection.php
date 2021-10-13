@@ -1741,7 +1741,7 @@ function add_current_nav_class($classes, $item) {
 
 
 /********************************************************/
-// Open External Links In New Window jquery
+// Open External Links In New Tab jquery
 /********************************************************/
 add_action('wp_footer', 'add_openExternalLinksNewTab');
 function add_openExternalLinksNewTab() {
@@ -1765,7 +1765,7 @@ function add_openExternalLinksNewTab() {
 // https://css-tricks.com/snippets/jquery/open-external-links-in-new-window/
 
 /********************************************************/
-// Open External Links In New Window vanilla js
+// Open External Links In New Tab vanilla js
 /********************************************************/
 add_action('wp_footer', 'openExternalLinksNewTab');
 function openExternalLinksNewTab() {
