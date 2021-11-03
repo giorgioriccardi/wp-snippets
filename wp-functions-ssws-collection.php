@@ -2420,3 +2420,28 @@ function ssws_cf7_embed() {
 //   add_action('blocksy:single:content:bottom', 'ssws_cf7_embed');
 //   add_action('blocksy:single:bottom', 'ssws_cf7_embed');
 add_action('blocksy:content:bottom', 'ssws_cf7_embed');
+
+/********************************************************/
+/* Hide Selected Plugins from The Plugin Page */
+/********************************************************/
+add_filter( 'all_plugins', 'ssws_hide_plugins');
+function ssws_hide_plugins($plugins)
+{
+  		// Hide Your Plugin One
+	if(is_plugin_active('blocksy-companion-pro/blocksy-companion.php')) {
+		unset( $plugins['blocksy-companion-pro/blocksy-companion.php'] );
+	}
+  
+   		// Hide Your Plugin Two
+	if(is_plugin_active('plugin-two-directory-name/plugin-two-directory-name.php')) {
+		unset( $plugins['plugin-two-directory-name/plugin-two-directory-name.php'] );
+	}
+  
+   		// Hide Your Plugin Three
+	if(is_plugin_active('plugin-three-directory-name/plugin-three-directory-name.php')) {
+		unset( $plugins['plugin-three-directory-name/plugin-three-directory-name.php'] );
+	}
+
+	return $plugins;
+}
+// https://syncwin.com/tutorial/wordpress-dashboard-plugin-hiding/
