@@ -2433,12 +2433,12 @@ function ssws_hide_plugins($plugins)
   }
   
    		// Hide Your Plugin Two
-	if(is_plugin_active('user-role-editor/user-role-editor.php')) {
+	if( !current_user_can('administrator') && is_plugin_active('user-role-editor/user-role-editor.php')) {
 		unset( $plugins['user-role-editor/user-role-editor.php'] );
 	}
   
    		// Hide Your Plugin Three
-	if(is_plugin_active('plugin-three-directory-name/plugin-three-directory-name.php')) {
+	if( !current_user_can('administrator') && is_plugin_active('plugin-three-directory-name/plugin-three-directory-name.php')) {
 		unset( $plugins['plugin-three-directory-name/plugin-three-directory-name.php'] );
 	}
 
