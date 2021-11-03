@@ -2427,14 +2427,14 @@ add_action('blocksy:content:bottom', 'ssws_cf7_embed');
 add_filter( 'all_plugins', 'ssws_hide_plugins');
 function ssws_hide_plugins($plugins)
 {
-  		// Hide Your Plugin One
-	if(is_plugin_active('blocksy-companion-pro/blocksy-companion.php')) {
-		unset( $plugins['blocksy-companion-pro/blocksy-companion.php'] );
-	}
+      // Hide Your Plugin One
+  if( !current_user_can('administrator') && is_plugin_active('blocksy-companion-pro/blocksy-companion.php')) {
+    unset( $plugins['blocksy-companion-pro/blocksy-companion.php'] );
+  }
   
    		// Hide Your Plugin Two
-	if(is_plugin_active('plugin-two-directory-name/plugin-two-directory-name.php')) {
-		unset( $plugins['plugin-two-directory-name/plugin-two-directory-name.php'] );
+	if(is_plugin_active('user-role-editor/user-role-editor.php')) {
+		unset( $plugins['user-role-editor/user-role-editor.php'] );
 	}
   
    		// Hide Your Plugin Three
