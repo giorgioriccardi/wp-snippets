@@ -2445,3 +2445,10 @@ function ssws_hide_plugins($plugins)
 	return $plugins;
 }
 // https://syncwin.com/tutorial/wordpress-dashboard-plugin-hiding/
+
+/********************************************************/
+// Display/Render Blocks Content on Blog Pages
+/********************************************************/
+$posts_page = get_post( get_option( 'page_for_posts' ) );
+  echo apply_filters( 'the_content', $posts_page->post_content );
+// https://dev-notes.eu/2016/05/wordpress-content-on-posts-for-pages/
