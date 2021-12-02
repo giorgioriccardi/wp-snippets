@@ -2446,9 +2446,55 @@ function ssws_hide_plugins($plugins)
 }
 // https://syncwin.com/tutorial/wordpress-dashboard-plugin-hiding/
 
+
 /********************************************************/
 // Display/Render Blocks Content on Blog Pages
 /********************************************************/
 $posts_page = get_post( get_option( 'page_for_posts' ) );
   echo apply_filters( 'the_content', $posts_page->post_content );
 // https://dev-notes.eu/2016/05/wordpress-content-on-posts-for-pages/
+
+
+/********************************************************/
+/* Hide Selected Plugins from The Plugins Page */
+/********************************************************/
+add_filter( 'all_plugins', 'ssws_hide_plugins');
+function ssws_hide_plugins($plugins)
+{
+  		// Hide Your Plugin One
+	if( !current_user_can('administrator') && is_plugin_active('blocksy-companion-pro/blocksy-companion.php')) {
+		unset( $plugins['blocksy-companion-pro/blocksy-companion.php'] );
+	}
+  
+   		// Hide Your Plugin Two
+	if( !current_user_can('administrator') && is_plugin_active('user-role-editor/user-role-editor.php')) {
+		unset( $plugins['user-role-editor/user-role-editor.php'] );
+	}
+  
+   		// Hide Your Plugin Three
+	if( !current_user_can('administrator') && is_plugin_active('plugin-three-directory-name/plugin-three-directory-name.php')) {
+		unset( $plugins['plugin-three-directory-name/plugin-three-directory-name.php'] );
+	}
+
+	return $plugins;
+}
+// https://syncwin.com/tutorial/wordpress-dashboard-plugin-hiding/
+
+
+/********************************************************/
+// Hide blocksy dashboard admin icons
+/********************************************************/
+if ( ! current_user_can( 'administrator' ) ) {
+	function ssws_hide_admin_menu_icons_css()
+	{
+		?>
+			<style>
+				/* blocksy icon */
+				.toplevel_page_ct-dashboard {
+					display: none;
+				}
+			</style>
+		<?php
+	}
+	add_action('admin_head', 'ssws_hide_admin_menu_icons_css'); 
+}
