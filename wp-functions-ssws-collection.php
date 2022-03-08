@@ -1000,7 +1000,7 @@ function ssws_enqueue_styles()
 
 
 /********************************************************/
-//Allow SVG through WordPress Media Uploader
+// Allow SVG through WordPress Media Uploader
 /********************************************************/
 function ssws_mime_types($mimes) {
   $mimes['svg'] = 'image/svg+xml';
@@ -1010,7 +1010,7 @@ add_filter('upload_mimes', 'ssws_mime_types');
 
 
 /********************************************************/
-//Reordering the featured page elements : title, image, text, button
+// Reordering the featured page elements : title, image, text, button
 /********************************************************/
 
 add_action('wp_footer' , 'set_fp_item_order');
@@ -1094,7 +1094,7 @@ add_filter('pre_site_transient_update_themes', 'disable_wp_updates');
 
 
 /********************************************************/
-//Customizing the post layout (content, thumbnail) in post lists [SSWS version]
+// Customizing the post layout (content, thumbnail) in post lists [SSWS version]
 /********************************************************/
 
 add_filter('tc_post_list_layout' , 'ssws_post_list_layout_options');
@@ -1136,7 +1136,7 @@ function ssws_post_list_layout_options($layout) {
     return $layout;
   }
 }
-//http://themesandco.com/snippet/customizing-post-layout-content-thumbnail-archive-post-lists/
+// http://themesandco.com/snippet/customizing-post-layout-content-thumbnail-archive-post-lists/
 
 
 // pre_get_posts
@@ -2498,3 +2498,39 @@ if ( ! current_user_can( 'administrator' ) ) {
 	}
 	add_action('admin_head', 'ssws_hide_admin_menu_icons_css'); 
 }
+
+/********************************************************/
+// Allow upload custom file formats
+/********************************************************/
+add_filter( 'wp_check_filetype_and_ext', 'ssws_and_ext_webp', 10, 4 );
+function ssws_and_ext_webp( $types, $file, $filename, $mimes ) {
+    if ( false !== strpos( $filename, '.webp' ) ) {
+        $types['ext']  = 'webp';
+        $types['type'] = 'image/webp';
+    }
+    if ( false !== strpos( $filename, '.ogg' ) ) {
+        $types['ext']  = 'ogg';
+        $types['type'] = 'audio/ogg';
+    }
+    if ( false !== strpos( $filename, '.woff' ) ) {
+        $types['ext']  = 'woff';
+        $types['type'] = 'font/woff|application/font-woff|application/x-font-woff|application/octet-stream';
+    }
+    if ( false !== strpos( $filename, '.woff2' ) ) {
+        $types['ext']  = 'woff2';
+        $types['type'] = 'font/woff2|application/octet-stream|font/x-woff2';
+    }
+
+    return $types;
+}
+
+function ssws_mime_types($mimes) {
+  $mimes['webp']  = 'image/webp';
+  $mimes['ogg']   = 'audio/ogg';
+  $mimes['woff']  = 'font/woff|application/font-woff|application/x-font-woff|application/octet-stream';
+  $mimes['woff2'] = 'font/woff2|application/octet-stream|font/x-woff2';
+  
+  return $mimes;
+}
+
+add_filter( 'upload_mimes', 'ssws_mime_types' );
