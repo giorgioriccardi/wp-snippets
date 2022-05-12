@@ -100,7 +100,7 @@ jQuery(document).ready(function ($) {
         event.preventDefault();
         event.stopPropagation();
         window.open(this.href, "_blank");
-        console.log("external-link");
+        // console.log("external-link");
       });
     }
   });
@@ -110,20 +110,26 @@ jQuery(document).ready(function ($) {
 var links = document.links;
 
 for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+
+  var hrefValue = links[i].href;
+
   if (links[i].hostname != window.location.hostname) {
     links[i].target = '_blank';
     links[i].rel = 'noopener';
+    links[i].title = hrefValue;
     links[i].classList.add('debug', 'external-link');
-    console.log('external-link');
-}
+    // console.log('external-link');
+  }
 } // end vanilla JavaScript version
 
 // ADDING EXTERNAL ICON via CSS
 // https://developer.wordpress.org/resource/dashicons/#external
+// https://developer.wordpress.org/resource/dashicons/#pdf
   // .external-link::after {
   // 	font-family: 'Dashicons';
-  // 	content: "\f504";
-//  position: absolute;
-//  right: 0px;
+  // 	content: "\f504"; /* external */
+  //  /* content: "\f190"; */ /* pdf */
+//  position: relative;
+//  right: -10px;
 // }
 // end Open External Links In New Tab
