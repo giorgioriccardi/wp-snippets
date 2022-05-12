@@ -122,7 +122,7 @@ for (var i = 0, linksLength = links.length; i < linksLength; i++) {
   }
 } // end vanilla JavaScript version
 
-// ADDING EXTERNAL ICON via CSS
+// ADDING EXTERNAL LINK or PDF ICON via CSS
 // https://developer.wordpress.org/resource/dashicons/#external
 // https://developer.wordpress.org/resource/dashicons/#pdf
   // .external-link::after {
