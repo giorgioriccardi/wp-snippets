@@ -113,7 +113,12 @@ for (var i = 0, linksLength = links.length; i < linksLength; i++) {
 
   var hrefValue = links[i].href;
 
-  if (links[i].hostname != window.location.hostname) {
+  if (
+    links[i].hostname != window.location.hostname &&
+    links[i].firstChild.nodeName != "IMG" &&
+    !links[i].href.startsWith("tel:") &&
+    !links[i].href.startsWith("mailto:")
+) {
     links[i].target = '_blank';
     links[i].rel = 'noopener';
     links[i].title = hrefValue;
@@ -125,11 +130,23 @@ for (var i = 0, linksLength = links.length; i < linksLength; i++) {
 // ADDING EXTERNAL LINK or PDF ICON via CSS
 // https://developer.wordpress.org/resource/dashicons/#external
 // https://developer.wordpress.org/resource/dashicons/#pdf
-  // .external-link::after {
-  // 	font-family: 'Dashicons';
-  // 	content: "\f504"; /* external */
-  //  /* content: "\f190"; */ /* pdf */
-//  position: relative;
-//  right: -10px;
+// sass styles:
+// a {
+//   // external links
+//   &.external-link {
+//     &::after {
+//       font-family: "Dashicons";
+//       content: "\f504"; /* external */
+//       width: 11px;
+//       height: 11px;
+//     }
+//   }
+//   // pdf links/attachments
+//   &[href$=".pdf"] {
+//     &::after {
+//       font-family: "Dashicons";
+//       content: "\f190"; /* pdf */
+//     }
+//   }
 // }
 // end Open External Links In New Tab
