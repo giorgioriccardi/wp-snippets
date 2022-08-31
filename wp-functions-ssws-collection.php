@@ -2540,3 +2540,21 @@ function ssws_mime_types($mimes) {
 }
 
 add_filter( 'upload_mimes', 'ssws_mime_types' );
+
+/********************************************************/
+// Add Search results widget
+/********************************************************/
+function ssws_add_search_results_widget($query) {
+	if ( !is_admin() && $query->is_main_query() ) {
+		if ($query->is_search) {
+			// Add Search results widget area
+			function ssws_add_search_results_widget_area() {
+				// create a widget area here
+				// https://github.com/giorgioriccardi/wp-snippets#widgets
+			}
+			add_filter('blocksy:hero:description:before', 'ssws_add_search_results_widget_area');
+		}
+	}
+}
+  
+add_action('pre_get_posts','ssws_add_search_results_widget');
