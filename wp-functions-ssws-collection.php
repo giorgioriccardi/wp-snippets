@@ -998,6 +998,43 @@ function ssws_enqueue_styles()
 }
 // https://developer.wordpress.org/themes/advanced-topics/child-themes/
 
+/********************************************************/
+// Enqueue parent and child-theme styles ver 2.0 (2023)
+/********************************************************/
+/*
+Use a unique handle for the parent theme's style ["parent-blocksy-style"] instead of the default "parent-style". This will avoid conflicts with other themes or plugins that may also enqueue styles with the same handle.
+
+Use the "get_stylesheet_directory_uri()" function instead of "get_template_directory_uri()" to enqueue the child theme's style. This ensures that the correct path to the child theme's style is used.
+
+Use a version number for the "ssws-child-styles" and "ssws-custom-js" scripts to enable browser caching.
+*/
+
+add_action('wp_enqueue_scripts', 'ssws_child_styles_scripts_02');
+
+function ssws_child_styles_scripts_02() {
+	// Parent theme style
+	wp_enqueue_style(
+		'parent-blocksy-style',
+		get_template_directory_uri() . '/style.css'
+	);
+
+	// Child theme styles
+	wp_enqueue_style(
+		'ssws-child-styles',
+		get_stylesheet_directory_uri() . '/style.css',
+		array('parent-blocksy-style'),
+		wp_get_theme()->get('Version')
+	);
+
+	// Custom JS script
+	wp_enqueue_script(
+		'ssws-custom-js',
+		get_stylesheet_directory_uri() . '/assets/js/app.js',
+		array('jquery'),
+		wp_get_theme()->get('Version'),
+		true
+	);
+}
 
 /********************************************************/
 // Allow SVG through WordPress Media Uploader
