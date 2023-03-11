@@ -2127,7 +2127,6 @@ add_filter('acf/fields/google_map/api', 'sswsMapKey');
 // https://www.advancedcustomfields.com/resources/google-map/
 // this needs to be implemented with a custom input field via customizr to keep the key separated from the theme
 
-
 /********************************************************/
 // Automatically set the image Title, Alt-Text, Caption & Description upon upload
 /********************************************************/
@@ -2164,6 +2163,47 @@ function ssws_set_image_meta_upon_image_upload( $post_ID ) {
 	} 
 }
 // http://brutalbusiness.com/automatically-set-the-wordpress-image-title-alt-text-other-meta/
+
+/********************************************************/
+// Automatically set the image Title, 
+// Alt-Text, Caption & Description upon upload ver 2.0 (2023)
+/********************************************************/
+/*
+Remove unnecessary code:
+The comments about the Excerpt/Caption or Content/Description suggest that these lines of code may not be needed, so they can be commented out or removed to reduce unnecessary processing.
+
+Combine sanitization and capitalization:
+The code sanitizes the title twice by removing hyphens, underscores, and extra spaces, and then capitalizing the first letter of every word. It would be more efficient to combine these operations into one step using a regular expression that replaces any non-alphanumeric character with a space and then capitalizes the first letter of every word.
+
+Use native WordPress functions:
+The code uses a mix of native WordPress functions and custom code. To improve performance and compatibility with future updates, it's better to rely on native functions as much as possible. For example, instead of using get_post() to retrieve the post object, the code can use get_post_field() to retrieve a specific field (in this case, the post title).
+*/
+
+if (!function_exists("ssws_set_image_meta_upon_image_upload_02")) {
+
+	add_action("add_attachment", "ssws_set_image_meta_upon_image_upload_02");
+
+	function ssws_set_image_meta_upon_image_upload_02($post_ID) {
+		if (wp_attachment_is_image($post_ID)) {
+			$ssws_image_title = get_post_field("post_title", $post_ID);
+
+			// Sanitize and capitalize the title
+			// $ssws_image_title = ucwords(preg_replace("/[^a-zA-Z0-9]+/", " ", $ssws_image_title)); // no special characters allowed
+			$ssws_image_title = ucwords(preg_replace("/[^a-zA-Z0-9@]+/", " ", $ssws_image_title)); // allow only @
+
+			// Set the image Alt-Text
+			update_post_meta($post_ID, "_wp_attachment_image_alt", $ssws_image_title);
+
+			// Set the image meta (e.g. Title, Excerpt, Content)
+			wp_update_post([
+				"ID" => $post_ID,
+				"post_title" => $ssws_image_title,
+				// "post_excerpt" => $ssws_image_title,
+				// "post_content" => $ssws_image_title,
+			]);
+		}
+	}
+}
 
 /********************************************************/
 // Set all posts status to published
