@@ -1852,7 +1852,7 @@ function add_openExternalLinksNewTab_02() {
 			for (var i = 0; i < externalLinks.length; i++) {
 				externalLinks[i].target = '_blank';
 				externalLinks[i].rel = 'noopener';
-				console.log('external-link_02');
+				// console.log('external-link_02');
 			}
 		})();
 	</script>
