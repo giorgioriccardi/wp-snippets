@@ -1807,27 +1807,57 @@ function add_openExternalLinksNewTab() {
 add_action('wp_footer', 'openExternalLinksNewTab');
 function openExternalLinksNewTab() {
   ?>
-        <script>
-        // vanilla JavaScript
-        var links = document.links;
+    <script>
+      // vanilla JavaScript
+      var links = document.links;
 
-        for (var i = 0, linksLength = links.length; i < linksLength; i++) {
-            if (
-              links[i].hostname != window.location.hostname &&
-              links[i].firstChild &&
-              links[i].firstChild.nodeName != "IMG" &&
-              !links[i].href.startsWith("tel:") &&
-              !links[i].href.startsWith("mailto:")
-          ) {
-                links[i].target = '_blank';
-                links[i].rel = 'noopener';
-                // console.log('ext-link');
-            }
-        }
-        </script>
-        <?php
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+          if (
+            links[i].hostname != window.location.hostname &&
+            links[i].firstChild &&
+            links[i].firstChild.nodeName != "IMG" &&
+            !links[i].href.startsWith("tel:") &&
+            !links[i].href.startsWith("mailto:")
+        ) {
+              links[i].target = '_blank';
+              links[i].rel = 'noopener';
+              // console.log('ext-link');
+          }
+      }
+    </script>
+   <?php
 }
 
+/********************************************************/
+// Open External Links In New Tab ver 2.0 (2023)
+/********************************************************/
+/*
+Use a more specific selector to target only external links. 
+Ver 1.0, the function was iterating through all links on the page, regardless of whether they are internal or external. 
+Use a selector like a[href^="http"]:not([href^="<?php echo home_url(); ?>"]) to target only external links.
+
+Instead of using document.links to select all links on the page, 
+use document.querySelectorAll with the more specific selector to target only external links. 
+This can improve performance by avoiding the need to iterate through all links on the page.
+*/
+
+add_action("wp_footer", "add_openExternalLinksNewTab_02");
+
+function add_openExternalLinksNewTab_02() {
+?>
+	<script>
+		(function() {
+			var externalLinks = document.querySelectorAll('a[href^="http"]:not([href^="<?php echo home_url(); ?>"])');
+
+			for (var i = 0; i < externalLinks.length; i++) {
+				externalLinks[i].target = '_blank';
+				externalLinks[i].rel = 'noopener';
+				console.log('external-link_02');
+			}
+		})();
+	</script>
+<?php
+}
 
 /********************************************************/
 //  Allowing Hyperlinks in Your WordPress Excerpts
